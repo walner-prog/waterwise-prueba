@@ -1,0 +1,646 @@
+
+.mi-clase-personalizada {
+    /* Cambia el color del texto a rojo */
+     font-size: 30px; /* Establece el tamaño de fuente a 20 píxeles */
+     font-weight: bold; /* Hace el texto en negrita */
+                        /* Agrega más estilos según sea necesario */
+    }
+
+       /* Estilo inicial del input */
+     #edit_nombre {
+      border: 0.5px solid #0080ff; /* Color de borde predeterminado */
+      }
+
+     
+     
+
+      /* Estilo del input cuando se le da clic */
+        .edit_imput:focus {
+         
+            box-shadow: 0 0 0 0.2rem rgb(0, 13, 33); /* Sombra verde */
+         }
+
+        /* admin_custom.css */
+
+h1,h2,h3,p,input {
+
+color: white; /* Color de texto blanco para contrastar con el fondo negro */
+font-family: Arial, Helvetica, sans-serif;
+}
+
+
+             /*   colores para usar  */
+.bt-indigo {
+  background-color: #4f46e5; /* Indigo 600 de Tailwind CSS */
+  color: white;
+}
+.bt-teal {
+  background-color: #14b8a6; /* Teal 500 de Tailwind CSS para boton crear */
+  color: white;
+
+}
+
+
+
+.bt-amber {
+  background-color: #f59e0b; /* Amber 500 de Tailwind CSS */
+  color: white;
+}
+
+.bt-green {
+  background-color: #10b981; /* Green 500 de Tailwind CSS para editar  */
+  color: white;
+}
+.bt-purple {
+  background-color: #6d28d9; /* Purple 600 de Tailwind CSS */
+  color: white;
+}
+
+.bt-orange {
+  background-color: #f97316; /* Orange 500 de Tailwind CSS */
+  color: white;
+}
+
+.bt-cyan {
+  background-color: #06b6d4; /* Cyan 500 de Tailwind CSS */
+  color: white;
+}
+
+.bt-primario {
+  background-color: #0071bc; /* Cyan 500 de Tailwind CSS */
+  color: white;
+}
+
+.bt-secundario {
+  background-color: #7ac943; /* Cyan 500 de Tailwind CSS */
+  color: white;
+}
+
+.bt-tercer {
+  background-color: #29abe2; /* Cyan 500 de Tailwind CSS */
+  color: white;
+}
+.color-primario{
+  background: #025586;  /* fallback for old browsers */
+  background: -webkit-linear-gradient(to right, #065494, #006da7);  /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(to right, #109bff, #0c5da4); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+  
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-weight: bold; /* Opcional: Para hacer que el texto se vea más destacado */
+}
+.color-secundario{
+  color: #7ac943;/* Cyan 500 de Tailwind CSS */
+}
+            /* Colores para ls card y formularios //////////////////////////*/
+            /*//////////////////////////////////////////////////////////////*/
+            .card-indigo {
+              background-color: #4f46e5; /* Indigo 600 */
+              color: white;
+              border: 1px solid #4f46e5; /* Opcional: borde del mismo color */
+            }
+            
+            .card-teal {
+              background-color: #14b8a6; /* Teal 500 */
+              color: white;
+              border: 1px solid #14b8a6; /* Opcional: borde del mismo color */
+            }
+            
+            .card-cyan {
+              background-color: #06b6d4; /* Cyan 500 */
+              color: white;
+              border: 1px solid #06b6d4; /* Opcional: borde del mismo color */
+            }
+            
+            .card-amber {
+              background-color: #f59e0b; /* Amber 500 */
+              color: white;
+              border: 1px solid #f59e0b; /* Opcional: borde del mismo color */
+            }
+            
+            .card-green {
+              background-color: #10b981; /* Green 500 */
+              color: white;
+              border: 1px solid #10b981; /* Opcional: borde del mismo color */
+            }
+            
+            .card-purple {
+              background-color: #6d28d9; /* Purple 600 */
+              color: white;
+              border: 1px solid #6d28d9; /* Opcional: borde del mismo color */
+            }
+            
+            .card-orange {
+              background-color: #f97316; /* Orange 500 */
+              color: white;
+              border: 1px solid #f97316; /* Opcional: borde del mismo color */
+            }
+            
+            .card-red {
+              background-color: #ef4444; /* Red 500 */
+              color: white;
+              border: 1px solid #ef4444; /* Opcional: borde del mismo color */
+            }
+            
+            /* Botón con color personalizado y borde redondeado */
+.btn-indigo {
+  background-color: #4f46e5; /* Indigo 600 */
+  color: white;
+  border-radius: 0.375rem; /* Bordes redondeados */
+  padding: 0.5rem 1rem; /* Relleno del botón */
+  border: 1px solid #4f46e5; /* Opcional: borde del mismo color */
+}
+
+.btn-indigo:hover {
+  background-color: #434190; /* Indigo 700 (un tono más oscuro al pasar el ratón) */
+  color: white;
+}
+
+/* Botón Teal */
+.btn-teal {
+  background-color: #14b8a6; /* Teal 500 */
+  color: white;
+  border-radius: 0.375rem; /* Bordes redondeados */
+  padding: 0.5rem 1rem; /* Relleno del botón */
+  border: 1px solid #14b8a6; /* Opcional: borde del mismo color */
+}
+
+.btn-teal:hover {
+  background-color: #0d9a8d; /* Teal 600 (un tono más oscuro al pasar el ratón) */
+}
+
+/* Botón Cyan  para enviar*/
+.btn-cyan {
+  background-color: #06b6d4; /* Cyan 500 */
+  color: white;
+  border-radius: 0.375rem; /* Bordes redondeados */
+  padding: 0.5rem 1rem; /* Relleno del botón */
+  border: 1px solid #06b6d4; /* Opcional: borde del mismo color */
+}
+
+.btn-cyan:hover {
+  background-color: #05a3c6; /* Cyan 600 (un tono más oscuro al pasar el ratón) */
+  color: white;
+}
+
+/* Botón Amber */
+.btn-amber {
+  background-color: #f59e0b; /* Amber 500 */
+  color: white;
+  border-radius: 0.375rem; /* Bordes redondeados */
+  padding: 0.5rem 1rem; /* Relleno del botón */
+  border: 1px solid #f59e0b; /* Opcional: borde del mismo color */
+}
+
+.btn-amber:hover {
+  background-color: #e48d00; /* Amber 600 (un tono más oscuro al pasar el ratón) */
+}
+
+/* Botón Green para editar  */
+.btn-green {
+  background-color: #10b981; /* Green 500 */
+  color: white;
+  border-radius: 0.375rem; /* Bordes redondeados */
+  padding: 0.5rem 1rem; /* Relleno del botón */
+  border: 1px solid #10b981; /* Opcional: borde del mismo color */
+}
+
+.btn-green:hover {
+  background-color: #0f9d6d; /* Green 600 (un tono más oscuro al pasar el ratón) */
+  color: white;
+}
+
+/* Botón Purple  ver*/
+.btn-purple {
+  background-color: #6d28d9; /* Purple 600 */
+  color: white;
+  border-radius: 0.375rem; /* Bordes redondeados */
+  padding: 0.5rem 1rem; /* Relleno del botón */
+  border: 1px solid #6d28d9; /* Opcional: borde del mismo color */
+}
+
+.btn-purple:hover {
+  background-color: #5b21b6; /* Purple 700 (un tono más oscuro al pasar el ratón) */
+  color: white;
+}
+
+/* Botón Orange  eliminar*/
+.btn-orange {
+  background-color: #f91a16; /* Orange 500 */
+  color: white;
+  border-radius: 0.375rem; /* Bordes redondeados */
+  padding: 0.5rem 1rem; /* Relleno del botón */
+  border: 1px solid #f91616; /* Opcional: borde del mismo color */
+  
+  
+}
+
+.btn-orange:hover {
+  background-color: #e60303; /* Orange 600 (un tono más oscuro al pasar el ratón) */
+  color: white;
+}
+
+/* Enlace con color personalizado */
+.link-indigo {
+  color: #4f46e5; /* Indigo 600 */
+}
+
+.link-indigo:hover {
+  text-decoration: underline; /* Subrayado al pasar el ratón */
+}
+
+/* Enlace Teal */
+.link-teal {
+  color: #14b8a6; /* Teal 500 */
+}
+
+.link-teal:hover {
+  text-decoration: underline; /* Subrayado al pasar el ratón */
+}
+
+/* Enlace Cyan */
+.link-cyan {
+  color: #06b6d4; /* Cyan 500 */
+}
+
+.link-cyan:hover {
+  text-decoration: underline; /* Subrayado al pasar el ratón */
+}
+
+/* Enlace Amber */
+.link-amber {
+  color: #f59e0b; /* Amber 500 */
+}
+
+.link-amber:hover {
+  text-decoration: underline; /* Subrayado al pasar el ratón */
+}
+
+/* Enlace Green */
+.link-green {
+  color: #10b981; /* Green 500 */
+}
+
+.link-green:hover {
+  text-decoration: underline; /* Subrayado al pasar el ratón */
+}
+
+/* Enlace Purple */
+.link-purple {
+  color: #6d28d9; /* Purple 600 */
+}
+
+.link-purple:hover {
+  text-decoration: underline; /* Subrayado al pasar el ratón */
+}
+
+/* Enlace Orange */
+.link-orange {
+  color: #f97316; /* Orange 500 */
+}
+
+.link-orange:hover {
+  text-decoration: underline; /* Subrayado al pasar el ratón */
+}
+
+/* Enlace Red */
+.link-red {
+  color: #ef4444; /* Red 500 */
+}
+
+.link-red:hover {
+  text-decoration: underline; /* Subrayado al pasar el ratón */
+}
+
+
+.custom-list-item {
+  color: #748fa1; /* Cambia esto al color que desees */
+}
+
+.custom-list-item:hover,
+.custom-list-item:focus,
+.custom-list-item:active {
+  color: #014776; /* Cambia esto al color que desees al hacer clic */
+}
+ 
+.modal-color-body{
+  background-color: #ced4da;
+}
+
+
+
+.paginate_button {
+  margin: 2px;
+  padding: 5px 5px;
+  border-radius: 4px;
+  cursor: pointer;
+  color: #06b6d4;
+}
+
+.paginate_button:hover {
+  opacity: 0.8;
+  color: #3272f3;
+}
+
+.dataTables_wrapper .dataTables_paginate .paginate_button:disabled {
+  background-color: #e9ecef;
+  color: #1f3353;
+  cursor: not-allowed;
+}
+
+
+
+.text-cart{
+  color:rgb(94, 164, 255);
+  font-size: 25px;
+}
+.table-{
+  background: #0575E6;  /* fallback for old browsers */
+background: -webkit-linear-gradient(to right, #0331da, #0575E6);  /* Chrome 10-25, Safari 5.1-6 */
+background: linear-gradient(to right, #1548ff, #0575E6); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+
+}
+
+.table-lagon{
+
+  background: #9CECFB;  /* fallback for old browsers */
+background: -webkit-linear-gradient(to right, #67baff, #65C7F7, #00b1c9);  /* Chrome 10-25, Safari 5.1-6 */
+background: linear-gradient(to right, #0052D4, #65C7F7, #27d6f5); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+
+}
+.custon-badge{
+  font-size: 30px
+}
+
+.bagge-custon{
+  background: #00B4DB;  /* fallback for old browsers */
+background: -webkit-linear-gradient(to right, #0083B0, #00B4DB);  /* Chrome 10-25, Safari 5.1-6 */
+background: linear-gradient(to right, #0083B0, #00B4DB); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+
+}
+
+.dark-mode {
+  background-color: #1f2936;
+  color: #ffffff; /* Texto claro */
+}
+
+.light-mode {
+  background-color: #ffffff; /* Fondo claro */
+  color: #343a40; /* Texto oscuro */
+}
+
+/* Ejemplos de estilos específicos para AdminLTE */
+.dark-mode .navbar {
+  background-color: #1f2d3d;
+}
+
+.light-mode .navbar {
+  background: #0575E6;  /* fallback for old browsers */
+background: -webkit-linear-gradient(to right, #0331da, #0575E6);  /* Chrome 10-25, Safari 5.1-6 */
+background: linear-gradient(to right, #1548ff, #0575E6); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+
+  
+}
+
+/* Cambiar otros componentes según sea necesario */
+.dark-mode .content-wrapper {
+  background-color: #000000;
+}
+
+.light-mode .content-wrapper {
+  background-color: #f4f6f9;
+}
+.content-wrapper {
+  min-height: 100vh; /* Ocupa al menos el 100% de la altura de la ventana */
+}
+.dark-mode .main-footer, .dark-mode .main-header, .dark-mode .sidebar {
+  background-color: #000000df;
+}
+ .light-mode .sidebar {
+  background: #0575E6;  /* fallback for old browsers */
+  background: -webkit-linear-gradient(to right, #0331da, #0575E6);  /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(to right, #1548ff, #0575E6); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+ 
+}
+.dark-mode body, .dark-mode html {
+  background-color: #000000;
+  min-height: 100vh; /* Asegura que ocupe toda la altura de la pantalla */
+}
+.content-wrapper {
+  min-height: calc(100vh - 56px); /* Resta la altura de la navbar si la hay */
+}
+
+.dark-mode .content-wrapper {
+  background-color: #000000;
+}
+
+.dark-mode body, .dark-mode html, .dark-mode .wrapper, .dark-mode .content-wrapper {
+  height: 100%;
+  background-color: #000000;
+}
+
+
+/* Modo oscuro: Degradado claro */
+.dark-mode h1, 
+.dark-mode h2, 
+.dark-mode h3, 
+.dark-mode h4, 
+.dark-mode h5, 
+.dark-mode h6 {
+  background: #F7F8F8;  /* fallback for old browsers */
+  background: -webkit-linear-gradient(to right, #ACBB78, #F7F8F8);  /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(to right, #ACBB78, #F7F8F8); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+  
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-weight: bold; /* Opcional: Para hacer que el texto se vea más destacado */
+}
+
+/* Modo claro: Degradado oscuro */
+.light-mode h1, 
+.light-mode h2, 
+.light-mode h3, 
+.light-mode h4, 
+.light-mode h5, 
+.light-mode h6 {
+  background: #434343;  /* fallback for old browsers */
+  background: -webkit-linear-gradient(to right, #403d3d, #434343);  /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(to right, #413b3b, #434343); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+  
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-weight: bold; /* Opcional: Para hacer que el texto se vea más destacado */
+}
+
+
+
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 50px;
+  height: 30px;
+}
+
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: #0575E6;  /* fallback for old browsers */
+  background: -webkit-linear-gradient(to right, #0331da, #0575E6);  /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(to right, #1548ff, #0575E6); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+ 
+  transition: .4s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+input:checked + .slider {
+  background: #0575E6;  /* fallback for old browsers */
+  background: -webkit-linear-gradient(to right, #0331da, #0575E6);  /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(to right, #1548ff, #0575E6); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+ 
+}
+
+.slider i {
+  font-size: 20px;
+  color: white;
+  transition: .4s;
+}
+
+input:checked + .slider .fa-sun {
+  display: none;
+}
+
+input:checked + .slider .fa-moon {
+  display: block;
+}
+
+input:not(:checked) + .slider .fa-moon {
+  display: none;
+}
+
+input:not(:checked) + .slider .fa-sun {
+  display: block;
+}
+
+.slider.round {
+  border-radius: 34px;
+}
+
+
+.bagge-datetime {
+  margin-left: 20px;
+  font-size: 16px;
+  background: #0575E6;  /* fallback for old browsers */
+  background: -webkit-linear-gradient(to right, #0331da, #0575E6);  /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(to right, #1548ff, #0575E6); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+
+ 
+}
+
+.dropdown:hover .dropdown-menu {
+  display: block;
+  margin-top: 0;
+}
+
+
+    .pagination-container {
+        display: flex;
+        justify-content: center;
+        margin-top: 20px;
+    }
+    .pagination {
+        margin: 0;
+        padding: 0;
+        display: flex;
+        justify-content: center;
+    }
+    .pagination li {
+        margin: 0 2px;
+    }
+    .pagination .page-link {
+        padding: 0.5rem 0.75rem;
+    }
+    .pagination .page-item.active .page-link {
+        background-color: #28a3a7; /* Color para el ítem activo */
+        border-color: #28a7a7;
+    }
+    .pagination .page-item.disabled .page-link {
+        color: #6c757d;
+        cursor: not-allowed;
+    }
+
+
+    .bg-custom-primary {
+      background-color: #14b8a6 !important;
+  }
+  
+ 
+  .icon-separation-sidebar {
+    margin-right: 6px !important; /* Ajusta el valor según el espacio deseado */
+}
+.bg-primary {
+  background-color: #007bff !important; /* Cambia este valor si usas un color diferente */
+}
+/* Aplica un fondo color primario al logo */
+
+/* Aplica un degradado a los iconos */
+th i {
+  background: #F7F8F8;  /* fallback for old browsers */
+  background: -webkit-linear-gradient(to right, #ACBB78, #F7F8F8);  /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(to right, #ACBB78, #F7F8F8); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+  
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-size: 16px;
+  margin-right: 5px;
+}
+
+/* Opcional: Aplica un degradado al texto de los encabezados */
+th {
+  background: #F7F8F8;  /* fallback for old browsers */
+  background: -webkit-linear-gradient(to right, #ACBB78, #F7F8F8);  /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(to right, #ACBB78, #F7F8F8); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+  
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-weight: bold;
+}
+
+.light-mode th {
+  background: linear-gradient(to right, #333, #555);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  
+}
+
+.light-mode table {
+  background-color: #ffffff; /* Fondo blanco solo en modo claro */
+}
+
+
+.datos-pacientes{
+  background: #f7f5f3;  /* fallback for old browsers */
+background: -webkit-linear-gradient(to right, #FFFFFF, #ECE9E6);  /* Chrome 10-25, Safari 5.1-6 */
+background: linear-gradient(to right, #FFFFFF, #f8f8f8); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+
+}
+
+.bordered-rows tr {
+  border-bottom: 2px solid #0070a8; /* O el color que prefieras para el data table  */
+}
+
+.bt-primario {
+  background-color: #0071bc; /* Cyan 500 de Tailwind CSS */
+  color: white;
+}

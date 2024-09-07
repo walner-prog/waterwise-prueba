@@ -1,0 +1,12 @@
+{
+  "apps": [
+    {
+      "app_id": "app_b2ad745c-5cab-437d-b03a-beeafde70e0d",
+      "org_id": "user_aac363b9-af48-4a6c-b80a-5320ac3029b7",
+      "deploy_url": "https://push-n3-par-clevercloud-customers.services.clever-cloud.com/app_b2ad745c-5cab-437d-b03a-beeafde70e0d.git",
+      "git_ssh_url": "git+ssh://git@push-n3-par-clevercloud-customers.services.clever-cloud.com/app_b2ad745c-5cab-437d-b03a-beeafde70e0d.git",
+      "name": "waterwise",
+      "alias": "waterwise"
+    }
+  ]
+}
