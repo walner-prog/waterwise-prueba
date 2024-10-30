@@ -82,7 +82,7 @@ Route::get('/api/facturas/{clienteId}', [FacturaController::class, 'facturasPend
 Route::post('/facturas/confirmar-pago', [FacturaController::class, 'confirmarPago'])->name('facturas.confirmarPago');
 
 Route::post('/facturas/procesar-pago', [FacturaController::class, 'procesarPago'])->name('facturas.procesarPago');
-Route::get('/pagos_recibo', [FacturaController::class, 'pagos'])->name('pagos.recibo');
+Route::get('/pagos_recibo', [FacturaController::class, 'pagos'])->name('pagos.recibos');
 
 Route::get('/pagos/recibo/{facturaIds}', [FacturaController::class, 'generarRecibo'])->name('pagos.imprimir');
 
