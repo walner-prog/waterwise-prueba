@@ -21,11 +21,11 @@ return [
 
 
 
-    'logo' => '<b>WATER</b>WISE',
+    'logo' => '<b>WATER WISE',
     'logo_img' => 'vendor/adminlte/dist/img/AdminLTELogo.png',
-    'logo_img_class' => 'brand-image img-circle elevation-3',
+    'logo_img_class' => 'brand-image img-circle elevation-1',
     'logo_img_xl' => null,
-    'logo_img_xl_class' => 'brand-image-xs',
+    'logo_img_xl_class' => 'brand-image-xl',
     'logo_img_alt' => 'Admin Logo',
 
     
@@ -36,15 +36,15 @@ return [
             'path' => 'vendor/adminlte/dist/img/AdminLTELogo.png',
             'alt' => 'Auth Logo',
             'class' => '',
-            'width' => 50,
-            'height' => 50,
+            'width' => 100,
+            'height' => 100,
         ],
     ],
 
    
 
     'preloader' => [
-        'enabled' => true,
+        'enabled' => false,
         'mode' => 'fullscreen',
         'img' => [
             'path' => 'vendor/adminlte/dist/img/AdminLTELogo.png',
@@ -60,9 +60,9 @@ return [
     'usermenu_enabled' => true,
     'usermenu_header' => true,
     'usermenu_header_class' => 'bg-primary',
-    'usermenu_image' => true,
-    'usermenu_desc' => true,
-    'usermenu_profile_url' => true,
+    'usermenu_image' => false,
+    'usermenu_desc' => false,
+    'usermenu_profile_url' => false,
 
    
 
@@ -83,7 +83,7 @@ return [
 
 
     'classes_body' => '',
-    'classes_brand' => 'bg-primary text-white',
+    'classes_brand' => 'bg-indigo text-white',
  
      'classes_brand_text' => '',
      'classes_content_wrapper' => '',
@@ -146,7 +146,7 @@ return [
     'register_url' => 'register',
     'password_reset_url' => 'password/reset',
     'password_email_url' => 'password/email',
-    'profile_url' => false,
+    'profile_url' => true,
 
     /*
     |--------------------------------------------------------------------------
@@ -178,111 +178,148 @@ return [
 
     'menu' => [
         // Navbar items:
-        [
+       /* [
             'type' => 'navbar-search',
             'text' => 'search',
             'topnav_right' => true,
-        ],
+        ], */
         [
             'type' => 'fullscreen-widget',
             'topnav_right' => true,
         ],
 
         // Sidebar items:
-        [
-            'type' => 'sidebar-menu-search',
-            'text' => 'search',
-        ],
-        [
-            'text' => 'blog',
-            'url' => 'admin/blog',
-            'can' => 'manage-blog',
-        ],
-        [
-            'text' => 'pages',
-            'url' => 'admin/pages',
-            'icon' => 'far fa-fw fa-file',
-            'label' => 4,
-            'label_color' => 'success',
-        ],
-        ['header' => 'account_settings'],
-        [
-            'text' => 'profile',
-            'url' => 'admin/settings',
-            'icon' => 'fas fa-fw fa-user',
-        ],
-        [
-            'text' => 'change_password',
-            'url' => 'admin/settings',
-            'icon' => 'fas fa-fw fa-lock',
-        ],
-        [
-            'text' => 'multilevel',
-            'icon' => 'fas fa-fw fa-share',
-            'submenu' => [
-                [
-                    'text' => 'level_one',
-                    'url' => '#',
-                ],
-                [
-                    'text' => 'level_one',
-                    'url' => '#',
-                    'submenu' => [
-                        [
-                            'text' => 'level_two',
-                            'url' => '#',
-                        ],
-                        [
-                            'text' => 'level_two',
-                            'url' => '#',
-                            'submenu' => [
-                                [
-                                    'text' => 'level_three',
-                                    'url' => '#',
-                                ],
-                                [
-                                    'text' => 'level_three',
-                                    'url' => '#',
-                                ],
-                            ],
-                        ],
-                    ],
-                ],
-                [
-                    'text' => 'level_one',
-                    'url' => '#',
-                ],
+        // Sidebar items:
+    
+            [
+                'text'       => 'Clientes Registrados',
+                'icon_color' => 'white',
+                'text_color' => 'dark',
+                'icon'       => 'fas fa-fw fa-address-card icon-separation-sidebar',
+                'route'      => 'clientes.index',
+                'can'      => 'ver-clientes',
+                'active'     => ['clientes*'],
             ],
-        ],
-        ['header' => 'labels'],
-        [
-            'text' => 'important',
-            'icon_color' => 'red',
-            'url' => '#',
-        ],
-        [
-            'text' => 'warning',
-            'icon_color' => 'yellow',
-            'url' => '#',
-        ],
-        [
-            'text' => 'information',
-            'icon_color' => 'cyan',
-            'url' => '#',
-        ],
-    ],
+           
+            [
+                'text'       => 'Medidores',
+                'icon_color' => 'white',
+                'icon'       => 'fas fa-fw fa-file-medical icon-separation-sidebar',
+                'route'      => 'medidores.index',
+                'active'     => ['medidores*'],
+                'can'      => 'ver-medidores',
+            ],
+            [
+                'text'       => 'Lecturas',
+                'icon_color' => 'white',
+                'icon'       => 'fas fa-fw fa-ambulance icon-separation-sidebar',
+                'route'      => 'lecturas_mensuales.index',
+                'active'     => ['lecturas_mensuales*'],
+                'can'      => 'ver-lecturas_mensuales',
+            ],
+            [
+                'text'       => 'Tarifas',
+                'icon_color' => 'white',
+                'icon'       => 'fas fa-fw fa-notes-medical icon-separation-sidebar',
+                'route'      => 'tarifas.index',
+                'active'     => ['tarifas*'],
+                'can'      => 'ver-tarifas',
+            ],
+            [
+                'text'       => 'Facturas',
+                'icon_color' => 'white',
+                'icon'       => 'fas fa-fw fa-exclamation-triangle icon-separation-sidebar',
+                'route'      => 'facturas.index',
+                'active'     => ['facturas*'],
+                'can'      => 'ver-facturas',
+            ],
 
-    /*
-    |--------------------------------------------------------------------------
-    | Menu Filters
-    |--------------------------------------------------------------------------
-    |
-    | Here we can modify the menu filters of the admin panel.
-    |
-    | For detailed instructions you can look the menu filters section here:
-    | https://github.com/jeroennoten/Laravel-AdminLTE/wiki/Menu-Configuration
-    |
-    */
+            [
+                'text'       => 'Ingresos',
+                'icon_color' => 'white',
+                'icon'       => 'fas fa-fw fa-money-bill-alt icon-separation-sidebar',
+                'route'      => 'ingresos.index',
+                'active'     => ['ingresos*'],
+                'can'      => 'ver-ingresos',
+            ],
+
+            [
+                'text'       => 'Egresos',
+                'icon_color' => 'white',
+                'icon'       => 'fas fa-fw fa-money-bill-wave icon-separation-sidebar',
+                'route'      => 'egresos.index',
+                'active'     => ['egresos*'],
+                'can'      => 'ver-egresos',
+            ],
+
+            [
+                'text'       => 'Empleados',
+                'icon_color' => 'white',
+                'icon'       => 'fas fa-fw fa-users icon-separation-sidebar',
+                'route'      => 'empleados.index',
+                'active'     => ['empleados*'],
+                'can'      => 'ver-empleados',
+            ],
+            [
+                'text'       => ' Productos',
+                'icon_color' => 'white',
+                'icon'       => 'fas fa-fw fa-box',
+                'route'      => 'productos.index',
+                'active'     => ['productos*'],
+                'can'      => '',
+            ],
+            [
+                'text'       => ' ventas',
+                'icon_color' => 'white',
+                'icon'       => 'fas fa-fw fa-shopping-cart',
+                'route'      => 'ventas.index',
+                'active'     => ['ventas*'],
+                'can'      => '',
+            ],
+
+            [
+                'text'       => 'Reportes',
+                'icon_color' => 'white',
+                'icon'       => 'fas fa-fw fa-file-alt icon-separation-sidebar',
+                'route'      => 'reportes.index',
+                'active'     => ['reportes*'],
+                'can'      => '',
+              
+            ],
+
+            [
+                'text'       => 'Finanzas',
+                'icon_color' => 'white',
+                'icon'       => 'fas fa-fw fa-chart-bar icon-separation-sidebar',
+                'route'      => 'finanzas.index',
+                'active'     => ['finanzas*'],
+                'can'      => '',
+               
+            ],
+
+           
+                    [
+                        'text'       => 'Usuarios',
+                        'icon_color' => 'white',
+                        'icon'       => 'fas fa-fw fa-users',
+                        'route'      => 'usuarios.index',
+                        'active'     => ['Usuarios*'],
+                        'can'      => 'ver-usuarios',
+                    ],
+                    [
+                        'text'       => 'Roles de usuarios',
+                        'icon_color' => 'white',
+                        'icon'       => 'fas fa-fw fa-user-lock',
+                        'route'      => 'roles.index',
+                        'active'     => ['roles*'],
+                        'can'      => 'ver-roles',
+                    ],
+              
+            
+           
+       
+        ],
+   
 
     'filters' => [
         JeroenNoten\LaravelAdminLte\Menu\Filters\GateFilter::class,

@@ -31,7 +31,7 @@ font-family: Arial, Helvetica, sans-serif;
 
              /*   colores para usar  */
 .bt-indigo {
-  background-color: #4f46e5; /* Indigo 600 de Tailwind CSS */
+  background-color: hsl(244, 55%, 24%); /* Indigo 600 de Tailwind CSS */
   color: white;
 }
 .bt-teal {
@@ -82,8 +82,8 @@ font-family: Arial, Helvetica, sans-serif;
 }
 .color-primario{
   background: #025586;  /* fallback for old browsers */
-  background: -webkit-linear-gradient(to right, #065494, #006da7);  /* Chrome 10-25, Safari 5.1-6 */
-  background: linear-gradient(to right, #109bff, #0c5da4); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+  background: -webkit-linear-gradient(to right, #0b0a42, #131345);  /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(to right, #0d1435, #0a2236); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
   
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -95,7 +95,7 @@ font-family: Arial, Helvetica, sans-serif;
             /* Colores para ls card y formularios //////////////////////////*/
             /*//////////////////////////////////////////////////////////////*/
             .card-indigo {
-              background-color: #4f46e5; /* Indigo 600 */
+              background-color:hsl(244, 55%, 24%); /* Indigo 600 */
               color: white;
               border: 1px solid #4f46e5; /* Opcional: borde del mismo color */
             }
@@ -144,7 +144,7 @@ font-family: Arial, Helvetica, sans-serif;
             
             /* Botón con color personalizado y borde redondeado */
 .btn-indigo {
-  background-color: #4f46e5; /* Indigo 600 */
+  background-color: hsl(244, 55%, 24%); /* Indigo 600 */
   color: white;
   border-radius: 0.375rem; /* Bordes redondeados */
   padding: 0.5rem 1rem; /* Relleno del botón */
@@ -198,7 +198,7 @@ font-family: Arial, Helvetica, sans-serif;
 
 /* Botón Green para editar  */
 .btn-green {
-  background-color: #10b981; /* Green 500 */
+  background-color: #0b241b; /* Green 500 */
   color: white;
   border-radius: 0.375rem; /* Bordes redondeados */
   padding: 0.5rem 1rem; /* Relleno del botón */
@@ -212,11 +212,11 @@ font-family: Arial, Helvetica, sans-serif;
 
 /* Botón Purple  ver*/
 .btn-purple {
-  background-color: #6d28d9; /* Purple 600 */
+  background-color: #270066; /* Purple 600 */
   color: white;
   border-radius: 0.375rem; /* Bordes redondeados */
   padding: 0.5rem 1rem; /* Relleno del botón */
-  border: 1px solid #6d28d9; /* Opcional: borde del mismo color */
+  border: 1px solid #7429ed; /* Opcional: borde del mismo color */
 }
 
 .btn-purple:hover {
@@ -226,23 +226,23 @@ font-family: Arial, Helvetica, sans-serif;
 
 /* Botón Orange  eliminar*/
 .btn-orange {
-  background-color: #f91a16; /* Orange 500 */
+  background-color: #930200; /* Orange 500 */
   color: white;
   border-radius: 0.375rem; /* Bordes redondeados */
   padding: 0.5rem 1rem; /* Relleno del botón */
-  border: 1px solid #f91616; /* Opcional: borde del mismo color */
+  border: 1px solid #ff4d4d; /* Opcional: borde del mismo color */
   
   
 }
 
 .btn-orange:hover {
-  background-color: #e60303; /* Orange 600 (un tono más oscuro al pasar el ratón) */
+  background-color: #da0202; /* Orange 600 (un tono más oscuro al pasar el ratón) */
   color: white;
 }
 
 /* Enlace con color personalizado */
 .link-indigo {
-  color: #4f46e5; /* Indigo 600 */
+  color: #12103d; /* Indigo 600 */
 }
 
 .link-indigo:hover {
@@ -373,14 +373,12 @@ background: linear-gradient(to right, #0052D4, #65C7F7, #27d6f5); /* W3C, IE 10+
 }
 
 .bagge-custon{
-  background: #00B4DB;  /* fallback for old browsers */
-background: -webkit-linear-gradient(to right, #0083B0, #00B4DB);  /* Chrome 10-25, Safari 5.1-6 */
-background: linear-gradient(to right, #0083B0, #00B4DB); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-
+ 
+background:hsl(244, 55%, 24%);
 }
 
 .dark-mode {
-  background-color: #1f2936;
+  background-color: #000000;
   color: #ffffff; /* Texto claro */
 }
 
@@ -395,11 +393,11 @@ background: linear-gradient(to right, #0083B0, #00B4DB); /* W3C, IE 10+/ Edge, F
 }
 
 .light-mode .navbar {
-  background: #0575E6;  /* fallback for old browsers */
-background: -webkit-linear-gradient(to right, #0331da, #0575E6);  /* Chrome 10-25, Safari 5.1-6 */
-background: linear-gradient(to right, #1548ff, #0575E6); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-
   
+background: hsl(244, 55%, 24%);
+
+
+
 }
 
 /* Cambiar otros componentes según sea necesario */
@@ -417,10 +415,8 @@ background: linear-gradient(to right, #1548ff, #0575E6); /* W3C, IE 10+/ Edge, F
   background-color: #000000df;
 }
  .light-mode .sidebar {
-  background: #0575E6;  /* fallback for old browsers */
-  background: -webkit-linear-gradient(to right, #0331da, #0575E6);  /* Chrome 10-25, Safari 5.1-6 */
-  background: linear-gradient(to right, #1548ff, #0575E6); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
  
+  background: hsl(244, 55%, 24%);
 }
 .dark-mode body, .dark-mode html {
   background-color: #000000;
@@ -448,8 +444,8 @@ background: linear-gradient(to right, #1548ff, #0575E6); /* W3C, IE 10+/ Edge, F
 .dark-mode h5, 
 .dark-mode h6 {
   background: #F7F8F8;  /* fallback for old browsers */
-  background: -webkit-linear-gradient(to right, #ACBB78, #F7F8F8);  /* Chrome 10-25, Safari 5.1-6 */
-  background: linear-gradient(to right, #ACBB78, #F7F8F8); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+  background: -webkit-linear-gradient(to right, #f7ffdc, #F7F8F8);  /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(to right, #fcfcfc, #F7F8F8); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
   
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -459,7 +455,7 @@ background: linear-gradient(to right, #1548ff, #0575E6); /* W3C, IE 10+/ Edge, F
 /* Modo claro: Degradado oscuro */
 .light-mode h1, 
 .light-mode h2, 
-.light-mode h3, 
+ 
 .light-mode h4, 
 .light-mode h5, 
 .light-mode h6 {
@@ -472,7 +468,53 @@ background: linear-gradient(to right, #1548ff, #0575E6); /* W3C, IE 10+/ Edge, F
   font-weight: bold; /* Opcional: Para hacer que el texto se vea más destacado */
 }
 
+.light-mode .card-indigo {
+  background-color: hsl(244, 55%, 24%); /* Indigo 600 */
+  color: white; /* Texto blanco para todo el contenido de la tarjeta */
+  border: 1px solid #4f46e5; /* Opcional: borde del mismo color */
+}
 
+.light-mode .card-indigo .text-white,
+.light-mode .card-indigo h3.h3-text {
+  color: white !important; /* Asegura que el texto del h3 y el contenido dentro de la tarjeta sea blanco */
+}
+
+
+.dark-mode .card .content {
+  background: #141E30;  /* fallback for old browsers */
+  background: -webkit-linear-gradient(to right, #243B55, #335187);  /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(to right, #243B55, #3c588b); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+ /* Cambia #ecf0f1 por el color del texto que desees en modo oscuro */
+ color: whitesmoke;
+}
+
+
+.dark-mode .char-grafica  {
+  background: #426199;  /* fallback for old browsers */
+  background: -webkit-linear-gradient(to right, #243B55, #335187);  /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(to right, #243B55, #354f7e); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+ /* Cambia #ecf0f1 por el color del texto que desees en modo oscuro */
+ color: whitesmoke;
+}
+
+/* En tu archivo CSS */
+.light-mode .custom-card {
+  background-color: #f8f9fa; /* Color claro */
+  color: #343a40; /* Texto oscuro */
+}
+
+.dark-mode .custom-card {
+  background-color: #240066; /* Color oscuro */
+  color: #f8f9fa; /* Texto claro */
+}
+
+.dark-mode .custom-card-header {
+  background-color: #495057; /* Fondo de la cabecera oscura */
+}
+
+.light-mode .custom-card-header {
+  background-color: #007bff; /* Fondo de la cabecera clara */
+}
 
 .switch {
   position: relative;
@@ -494,10 +536,7 @@ background: linear-gradient(to right, #1548ff, #0575E6); /* W3C, IE 10+/ Edge, F
   left: 0;
   right: 0;
   bottom: 0;
-  background: #0575E6;  /* fallback for old browsers */
-  background: -webkit-linear-gradient(to right, #0331da, #0575E6);  /* Chrome 10-25, Safari 5.1-6 */
-  background: linear-gradient(to right, #1548ff, #0575E6); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
- 
+  background: hsl(244, 55%, 24%);
   transition: .4s;
   display: flex;
   align-items: center;
@@ -505,10 +544,7 @@ background: linear-gradient(to right, #1548ff, #0575E6); /* W3C, IE 10+/ Edge, F
 }
 
 input:checked + .slider {
-  background: #0575E6;  /* fallback for old browsers */
-  background: -webkit-linear-gradient(to right, #0331da, #0575E6);  /* Chrome 10-25, Safari 5.1-6 */
-  background: linear-gradient(to right, #1548ff, #0575E6); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
- 
+  background: hsl(244, 55%, 24%);
 }
 
 .slider i {
@@ -541,11 +577,11 @@ input:not(:checked) + .slider .fa-sun {
 .bagge-datetime {
   margin-left: 20px;
   font-size: 16px;
-  background: #0575E6;  /* fallback for old browsers */
-  background: -webkit-linear-gradient(to right, #0331da, #0575E6);  /* Chrome 10-25, Safari 5.1-6 */
-  background: linear-gradient(to right, #1548ff, #0575E6); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-
- 
+  background: hsl(244, 55%, 24%);
+  border-radius: 0.375rem; /* Bordes redondeados */
+  padding: 0.5rem 1rem; /* Relleno del botón */
+  border: 1px solid hsl(244, 100%, 75%); /* Opcional: borde del mismo color */
+  
 }
 
 .dropdown:hover .dropdown-menu {
@@ -572,11 +608,11 @@ input:not(:checked) + .slider .fa-sun {
         padding: 0.5rem 0.75rem;
     }
     .pagination .page-item.active .page-link {
-        background-color: #28a3a7; /* Color para el ítem activo */
-        border-color: #28a7a7;
+        background-color: #564f92; /* Color para el ítem activo */
+        border-color: #5c5eac;
     }
     .pagination .page-item.disabled .page-link {
-        color: #6c757d;
+        color: #000000;
         cursor: not-allowed;
     }
 
@@ -597,7 +633,7 @@ input:not(:checked) + .slider .fa-sun {
 /* Aplica un degradado a los iconos */
 th i {
   background: #F7F8F8;  /* fallback for old browsers */
-  background: -webkit-linear-gradient(to right, #ACBB78, #F7F8F8);  /* Chrome 10-25, Safari 5.1-6 */
+  background: -webkit-linear-gradient(to right, #3f4233, #576666);  /* Chrome 10-25, Safari 5.1-6 */
   background: linear-gradient(to right, #ACBB78, #F7F8F8); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
   
   -webkit-background-clip: text;
@@ -609,8 +645,8 @@ th i {
 /* Opcional: Aplica un degradado al texto de los encabezados */
 th {
   background: #F7F8F8;  /* fallback for old browsers */
-  background: -webkit-linear-gradient(to right, #ACBB78, #F7F8F8);  /* Chrome 10-25, Safari 5.1-6 */
-  background: linear-gradient(to right, #ACBB78, #F7F8F8); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+  background: -webkit-linear-gradient(to right, #bdbdbd, #F7F8F8);  /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(to right, #e2e3e1, #F7F8F8); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
   
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -643,4 +679,19 @@ background: linear-gradient(to right, #FFFFFF, #f8f8f8); /* W3C, IE 10+/ Edge, F
 .bt-primario {
   background-color: #0071bc; /* Cyan 500 de Tailwind CSS */
   color: white;
+}
+
+
+@media (prefers-color-scheme: dark) {
+  .select2-container--default .select2-search--dropdown .select2-search__field {
+      background-color: #333333; /* Fondo oscuro */
+      color: #ffffff; /* Texto claro */
+  }
+}
+
+@media (prefers-color-scheme: light) {
+  .select2-container--default .select2-search--dropdown .select2-search__field {
+      background-color: #ffffff; /* Fondo claro */
+      color: #2c2b2b; /* Texto oscuro */
+  }
 }

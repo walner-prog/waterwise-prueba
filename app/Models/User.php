@@ -4,14 +4,15 @@ namespace App\Models;
 
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Foundation\Auth\User as Authenticatable;
+
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
-
+use Illuminate\Foundation\Auth\User as Authenticatable;
+use Spatie\Permission\Traits\HasRoles;
 class User extends Authenticatable
 {
-    use HasApiTokens, HasFactory, Notifiable;
-
+    use HasApiTokens, HasFactory, Notifiable, HasRoles;
+    
     /**
      * The attributes that are mass assignable.
      *
@@ -21,6 +22,7 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'rol',
     ];
 
     /**
@@ -42,18 +44,22 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    public function adminlte_image()
-    {
-        return 'https://picsum.photos/300/300';
-    }
-
-    public function adminlte_desc()
-    {
-        return 'I\'m a nice guy';
-    }
-
     public function adminlte_profile_url()
     {
-        return 'profile/username';
+        // Retorna la URL del perfil del usuario, ajusta según tu necesidad
+        return route('profile');  // Suponiendo que tienes una ruta 'profile' definida
     }
+
+    public function adminlte_image()
+    {
+        // Retorna la URL de la imagen del usuario
+        return $this->profile_photo ? asset('images/' . $this->profile_photo) : asset('default-avatar.png');
+    }
+
+    public function empleado()
+    {
+        return $this->hasOne(Empleado::class);
+    }
+
+  
 }
