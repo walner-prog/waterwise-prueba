@@ -92,7 +92,7 @@ Route::post('/pagos_recibo', [FacturaController::class, 'mostrarRecibo'])->name(
 
 
 Route::resource('ingresos', IngresoController::class);
-Route::get('/ingresos/{id}', [IngresoController::class, 'show'])->name('ingresos.show');
+Route::get('/ingresos/{id}', [IngresoController::class, 'show'])->name('ingresos.show-unico');
 
 
 
