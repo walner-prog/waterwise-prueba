@@ -21,19 +21,22 @@ class IngresosEgresosMensuales extends Component
     {
         \Carbon\Carbon::setLocale('es'); // Configurar Carbon en español
 
-        // Consulta para ingresos mensuales
-        $ingresosMensuales = Ingreso::select(
-                DB::raw('YEAR(fecha) as anio'),
-                DB::raw('MONTH(fecha) as mes'),
-                DB::raw('SUM(monto) as total_ingresos')
-            )
-            ->when($this->searchAnio, function ($query) {
-                $query->where(DB::raw('YEAR(fecha)'), $this->searchAnio);
-            })
-            ->when($this->searchMes, function ($query) {
-                $query->where(DB::raw('MONTH(fecha)'), $this->searchMes);
-            })
-            ->groupBy('anio', 'mes');
+      // Consulta para ingresos mensuales
+$ingresosMensuales = Ingreso::select(
+    DB::raw('YEAR(fecha) as anio'),
+    DB::raw('MONTH(fecha) as mes'),
+    DB::raw('SUM(monto) as total_ingresos')
+)
+->when($this->searchAnio, function ($query) {
+    $query->whereYear('fecha', $this->searchAnio);
+})
+->when($this->searchMes, function ($query) {
+    $query->whereMonth('fecha', $this->searchMes);
+})
+->groupBy('anio', 'mes')
+->orderBy('anio', 'asc')  // Ordenar por año ascendente
+->orderBy('mes', 'asc');   // Ordenar por mes ascendente
+
 
         // Consulta para egresos mensuales
         $egresosMensuales = Egreso::select(

@@ -73,6 +73,8 @@ Route::get('api/mes_actual', [LecturasMensualesController::class, 'getMesActual'
 Route::get('lecturas_mensuales/voucher/{id}', [LecturasMensualesController::class, 'voucher'])->name('lecturas_mensuales.voucher');
 Route::get('/lecturas-mensuales/ultima-lectura', [LecturasMensualesController::class, 'ultimaLectura'])->name('lecturas_mensuales.ultima_lectura');
 Route::get('/lecturas_mensuales_ultima_lectura_mes', [LecturasMensualesController::class, 'obtenerMesUltimaLectura'])->name('lecturas_mensuales.ultima_lectura_mes');
+// Ruta para obtener los detalles de la lectura
+Route::get('/lecturas_mensuales/{id}', [LecturasMensualesController::class, 'getLecturaDetalle']);
 
 
 
@@ -108,6 +110,11 @@ Route::get('/empleados/check/{id}', [EmpleadoController::class, 'check']);
 Route::get('/reportes', [ReportController::class, 'index'])->name('reportes.index');
 Route::get('/finanzas', [FinanzaController::class, 'index'])->name('finanzas.index');
 Route::get('/reporte-mensuales/{mes}/{anio}', [FinanzaController::class, 'generateReport'])->name('reporte.mensuales');
+Route::get('/reporte', [FinanzaController::class, 'generateReport'])->name('generateReport');
+Route::get('/reportes_pdf_mensual', [FinanzaController::class, 'todo'])->name('reportes.todo');
+Route::get('/reportes/{reporte}', [FinanzaController::class, 'show'])->name('reportes.show');
+
+
 Route::get('/recibo-cobro/{clienteId}', [FinanzaController::class, 'generarReciboCobroPdf'])->name('recibo.cobro.pdf');
 Route::get('/enviar-recibo-whatsapp/{clienteId}', [FinanzaController::class, 'enviarReciboPorWhatsApp'])->name('enviar.recibo.whatsapp');
 Route::get('/enviar-recibo-correo/{clienteId}', [FinanzaController::class, 'enviarReciboPorCorreo'])->name('enviar.recibo.correo');

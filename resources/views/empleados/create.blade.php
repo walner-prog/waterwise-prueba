@@ -121,15 +121,15 @@
           
               <div class="form-group">
                   <label for="nombre">Nombre</label>
-                  <input type="text" class="form-control" name="nombre" id="nombre" required>
+                  <input type="text" class="form-control" name="nombre" id="nombre" required readonly>
               </div>
               <div class="form-group">
                   <label for="apellido">Apellido</label>
-                  <input type="text" class="form-control" name="apellido" id="apellido" required>
+                  <input type="text" class="form-control" name="apellido" id="apellido" required readonly>
               </div>
               <div class="form-group">
                   <label for="puesto">Puesto</label>
-                  <input type="text" class="form-control" id="puesto" name="puesto" required>
+                  <input type="text" class="form-control" id="puesto" name="puesto" required readonly>
               </div>
           
               <button type="submit" class="btn btn-primary">Guardar</button>

@@ -12,12 +12,18 @@ use App\Models\Tarifa;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Barryvdh\DomPDF\Facade\Pdf;
-
+use Carbon\Carbon;
 use App\Mail\ReciboCobroMail;
 use Illuminate\Support\Facades\Mail;
+use App\Models\Reporte;
 
 class FinanzaController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
     public function index()
     {
         $mes = now()->month; // O el mes que desees
@@ -36,111 +42,104 @@ class FinanzaController extends Controller
     }
     
 
-    public function generateReport(Request $request, $mes, $anio)
+    public function generateReport(Request $request)
     {
+        $mes = $request->input('mes', now()->month); // Mes actual si no se selecciona
+        $anio = $request->input('anio', now()->year); // Año actual si no se selecciona
 
-     // Obtener ingresos detallados por facturas, incluyendo la tarifa asociada y asegurando la carga de tarifa_id
-$ingresosFacturas = Ingreso::whereMonth('fecha', $mes)
-->whereYear('fecha', $anio)
-->whereNull('venta_id') // Solo facturas
-->with(['factura' => function ($query) {
-    $query->with('tarifa:id,precio_por_m3'); // Cargar solo el ID y precio de tarifa
-}])
-->get();
+        // Definir rango de fechas para el mes específico
+        $fechaInicioMes = Carbon::create($anio, $mes, 1)->startOfMonth();
+        $fechaFinMes = Carbon::create($anio, $mes, 1)->endOfMonth();
 
-// Calcular la suma en dinero tomando en cuenta la tarifa específica de cada factura
-$totalIngresosFacturas = $ingresosFacturas->reduce(function ($carry, $ingreso) {
-// Asegurarse de que cada ingreso tenga una factura y que esta tenga una tarifa
-if ($ingreso->factura && $ingreso->factura->tarifa) {
-    // Usar el monto total de la factura y ajustar el cálculo si es necesario
-    $carry += $ingreso->factura->monto_total;
-}
-return $carry;
-}, 0);
-        
-   // Obtener total de ingresos por ventas
-    $totalIngresosVentas = Ingreso::whereMonth('fecha', $mes)
-    ->whereYear('fecha', $anio)
-    ->whereNotNull('venta_id') // Solo ingresos por ventas (con venta_id)
-    ->sum('monto');
+        // Obtener ingresos detallados por facturas, incluyendo la tarifa asociada y asegurando la carga de tarifa_id
+        $ingresosFacturas = Ingreso::whereBetween('fecha', [$fechaInicioMes, $fechaFinMes])
+            ->whereNull('venta_id') // Solo facturas
+            ->with(['factura' => function ($query) {
+                $query->with('tarifa:id,precio_por_m3'); // Cargar solo el ID y precio de tarifa
+            }])
+            ->get();
 
-    // Calcular el total combinado de ingresos (si se necesita para el reporte)
-     $totalIngresos = $totalIngresosFacturas + $totalIngresosVentas;
-    
-        // Obtener el total de ingresos por ventas
-        $totalIngresosPorVentas = Ingreso::whereMonth('fecha', $mes)
-            ->whereYear('fecha', $anio)
-            ->whereNotNull('venta_id') // Solo considerar ingresos asociados a ventas
+        // Calcular la suma en dinero tomando en cuenta la tarifa específica de cada factura
+        $totalIngresosFacturas = $ingresosFacturas->reduce(function ($carry, $ingreso) {
+            // Asegurarse de que cada ingreso tenga una factura y que esta tenga una tarifa
+            if ($ingreso->factura && $ingreso->factura->tarifa) {
+                // Usar el monto total de la factura y ajustar el cálculo si es necesario
+                $carry += $ingreso->factura->monto_total;
+            }
+            return $carry;
+        }, 0);
+
+        // Obtener total de ingresos por ventas
+        $totalIngresosVentas = Ingreso::whereBetween('fecha', [$fechaInicioMes, $fechaFinMes])
+            ->whereNotNull('venta_id') // Solo ingresos por ventas (con venta_id)
             ->sum('monto');
-    
+
+        // Calcular el total combinado de ingresos (si se necesita para el reporte)
+        $totalIngresos = $totalIngresosFacturas + $totalIngresosVentas;
+
+        // Obtener el total de ingresos por ventas
+        $totalIngresosPorVentas = $totalIngresosVentas;
+
         // Obtener el número de clientes únicos basados en la relación con Factura
-        $numeroClientesFacturas = Ingreso::whereMonth('fecha', $mes)
-            ->whereYear('fecha', $anio)
+        $numeroClientesFacturas = Ingreso::whereBetween('fecha', [$fechaInicioMes, $fechaFinMes])
             ->join('facturas', 'ingresos.factura_id', '=', 'facturas.id')
             ->distinct()
             ->count('facturas.cliente_id');
-    
+
         // Obtener el número de clientes únicos basados en la relación con Venta
-        $numeroClientesVentas = Ingreso::whereMonth('fecha', $mes)
-            ->whereYear('fecha', $anio)
+        $numeroClientesVentas = Ingreso::whereBetween('fecha', [$fechaInicioMes, $fechaFinMes])
             ->whereNotNull('venta_id') // Solo considerar ingresos asociados a ventas
             ->join('ventas', 'ingresos.venta_id', '=', 'ventas.id')
             ->distinct()
             ->count('ventas.cliente_id');
-    
+
         // Obtener la tarifa por metro cúbico (suponiendo que tomas la tarifa más reciente o la vigente)
         $tarifa = Tarifa::orderBy('fecha_vigencia', 'desc')->first();
-    
+
         // Calcular total de metros cúbicos consumidos
         $totalMetrosCubicos = $tarifa ? ($totalIngresosFacturas / $tarifa->precio_por_m3) : 0;
-    
-        // Obtener los ingresos detallados
-        $ingresos = Ingreso::whereMonth('fecha', $mes)
-            ->whereYear('fecha', $anio)
-            ->get();
-       
 
-// Obtener ingresos detallados por ventas
-$ingresosVentas = Ingreso::whereMonth('fecha', $mes)
-    ->whereYear('fecha', $anio)
-    ->whereNotNull('venta_id') // Solo ventas
-    ->with(['venta']) // Cargar la venta relacionada
-    ->get();
-    
-        // Obtener total de egresos
-        $totalEgresos = Egreso::whereMonth('fecha', $mes)
-            ->whereYear('fecha', $anio)
-            ->sum('monto');
-    
-        // Obtener los egresos detallados
-        $egresosDetallados = Egreso::whereMonth('fecha', $mes)
-            ->whereYear('fecha', $anio)
+        // Obtener los ingresos detallados
+        $ingresos = Ingreso::whereBetween('fecha', [$fechaInicioMes, $fechaFinMes])->get();
+
+        // Obtener ingresos detallados por ventas
+        $ingresosVentas = Ingreso::whereBetween('fecha', [$fechaInicioMes, $fechaFinMes])
+            ->whereNotNull('venta_id') // Solo ventas
+            ->with(['venta']) // Cargar la venta relacionada
             ->get();
-    
+
+        // Obtener total de egresos
+        $totalEgresos = Egreso::whereBetween('fecha', [$fechaInicioMes, $fechaFinMes])->sum('monto');
+
+        // Obtener los egresos detallados
+        $egresosDetallados = Egreso::whereBetween('fecha', [$fechaInicioMes, $fechaFinMes])->get();
+
         // Calcular saldo del mes
         $saldoDelMes = $totalIngresos - $totalEgresos;
-    
-        // Obtener saldo acumulado
-        $saldoAcumulado = DB::table('ingresos')
-            ->where('fecha', '<', now()->startOfMonth()->subMonth())
-            ->sum('monto') - DB::table('egresos')
-            ->where('fecha', '<', now()->startOfMonth()->subMonth())
-            ->sum('monto');
-    
+
+       // Obtener el saldo acumulado hasta el último día del mes anterior
+ 
+       $saldoAcumulado = DB::table('ingresos')
+       ->where('fecha', '<', now()->startOfMonth()) // Hasta el último día del mes anterior
+       ->sum('monto') - DB::table('egresos')
+       ->where('fecha', '<', now()->startOfMonth())
+       ->sum('monto');
+
+
         // Calcular el nuevo saldo acumulado
         $nuevoSaldoAcumulado = $saldoAcumulado + $saldoDelMes;
-    
+
         // Obtener facturas en mora
         $facturasEnMora = Factura::where('estado_pago', 'pendiente')
             ->whereMonth('fecha_factura', $mes)
             ->whereYear('fecha_factura', $anio)
             ->sum('monto_total');
-    
+
         // Obtener mora de meses anteriores
         $facturasEnMoraAnterior = Factura::where('estado_pago', 'pendiente')
             ->where('fecha_factura', '<', now()->startOfMonth())
             ->sum('monto_total');
-    
+
         // Generar PDF
         $pdf = PDF::loadView('pdf.reporte-mensual', [
             'totalIngresos' => $totalIngresos,
@@ -148,24 +147,24 @@ $ingresosVentas = Ingreso::whereMonth('fecha', $mes)
             'ingresosFacturas' => $ingresosFacturas,
             'totalIngresosFacturas' => $totalIngresosFacturas,
             'totalIngresosVentas' => $totalIngresosVentas,
-            'totalIngresosPorVentas' => $totalIngresosPorVentas, // Agregamos esta línea
+            'totalIngresosPorVentas' => $totalIngresosPorVentas,
             'numeroClientesFacturas' => $numeroClientesFacturas,
-            'numeroClientesVentas' => $numeroClientesVentas, // Agregamos esta línea
+            'numeroClientesVentas' => $numeroClientesVentas,
             'totalMetrosCubicos' => $totalMetrosCubicos,
             'ingresos' => $ingresos,
             'totalEgresos' => $totalEgresos,
             'egresosDetallados' => $egresosDetallados,
             'saldoDelMes' => $saldoDelMes,
+            'saldoAcumulado'=> $saldoAcumulado,
             'nuevoSaldoAcumulado' => $nuevoSaldoAcumulado,
             'facturasEnMora' => $facturasEnMora,
             'facturasEnMoraAnterior' => $facturasEnMoraAnterior,
             'mes' => $mes,
             'anio' => $anio,
         ]);
-    
+
         return $pdf->stream("reporte-mensual-$mes-$anio.pdf");
     }
-    
     
 
     public function generarReciboCobro($clienteId)
@@ -348,6 +347,17 @@ public function enviarReciboPorCorreo($clienteId)
     return redirect()->route('finanzas.index')->with('info', 'Recibo de cobro enviado por correo electrónico correctamente.');
 }
 
+public function todo()
+{
+    // Obtener todos los reportes
+   // $reportes = Reporte::orderBy('fecha', 'desc')->get();
+    return view('finanzas.todo');
+}
 
+public function show(Reporte $reporte)
+{
+    // Devolver el archivo PDF
+    return response()->file(storage_path("app/{$reporte->ruta}"));
+}
 
 }

@@ -68,27 +68,32 @@
           <div class="col-md-10 mx-auto">
             <div class="card">
                 <div class="card-header bg-info text-white">
-                    <h4 class="mb-0">Crear Nuevo Rol</h4>
+                    <h4 class="mb-0 text-white">Crear Nuevo Rol</h4>
                 </div>
                 <div class="card-body">
-                    <form method="post" action="{{ route('roles.store') }}">
+                    <form method="post" action="{{ route('roles.store') }}" class="needs-validation" novalidate>
                         @csrf
                     
                         <div class="form-group">
-                            <label for="name" class="form-label">Nombre del rol</label>
-                            <input type="text" name="name" class="form-control" placeholder="Ingrese el nombre del rol" required>
+                            <label for="name" class="form-label">Nombre del Rol <i class="fas fa-tag"></i></label>
+                            <input type="text" name="name" class="form-control @error('name') is-invalid @enderror" placeholder="Ingrese el nombre del rol" required pattern="[A-Za-zÁÉÍÓÚáéíóúÑñ\s]+" title="Por favor, ingrese solo letras">
                             @error('name')
-                                <span class="text text-danger">{{ $message }}</span>
+                                <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
                         </div>
-                    
+
                         <div class="form-group">
                             <label for="" class="form-label">Permisos para este rol</label>
                             <div class="form-check">
                                 <input type="checkbox" name="select_all" class="form-check-input" id="select_all">
-                                <label class="form-check-label" for="select_all">
-                                    Seleccionar todos
+                                <label class="form-check-label text-warning" for="select_all">
+                                    Seleccionar todos 
                                 </label>
+                            
+                                <span class="badge badge-success">Al seleccionar todos los permisos para este roll se le otorga todo el acceso 
+                                    al sistema
+                                </span>
+                                
                             </div>
                             <div class="row">
                                 @foreach($permission as $value)
@@ -147,6 +152,25 @@
                 });
             });
         });
+        </script>
+        <script>
+            (function () {
+  'use strict'
+
+  var forms = document.querySelectorAll('.needs-validation')
+
+  Array.prototype.slice.call(forms).forEach(function (form) {
+    form.addEventListener('submit', function (event) {
+      if (!form.checkValidity()) {
+        event.preventDefault()
+        event.stopPropagation()
+      }
+
+      form.classList.add('was-validated')
+    }, false)
+  })
+})()
+
         </script>
 </body>
 </html>

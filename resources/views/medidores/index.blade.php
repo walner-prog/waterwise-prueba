@@ -48,7 +48,7 @@
 
 
 @section('content')
-<div class="container mt-4 toggle-container">
+<div class="container  toggle-container">
     @section('preloader')
       <i class="fas fa-4x fa-spin fa-spinner text-secondary"></i>
     @stop
@@ -100,15 +100,15 @@
 
     @can('ver-medidores')
     <div class="table-responsive">
-        <table id="medidoresTable" class="min-w-full w-full w-100 border border-gray-300 shadow-md rounded-lg p-2">
+        <table id="medidoresTable" class="min-w-full w-full w-100 border border-gray-300 shadow-md rounded-lg p-2 table-striped">
             <thead class="bg-gradient-to-r from-blue-500 to-blue-600 text-white w-full">
                 <tr>
-                    <th class="px-6 py-3 text-left text-base font-medium tracking-wider border-b border-gray-200">ID</th>
-                    <th class="px-6 py-3 text-left text-base font-medium tracking-wider border-b border-gray-200">Número de Medidor</th>
-                    <th class="px-6 py-3 text-left text-base font-medium tracking-wider border-b border-gray-200">Ubicación</th>
-                    <th class="px-6 py-3 text-left text-base font-medium tracking-wider border-b border-gray-200">Nombre  Cliente</th>
-                    <th class="px-6 py-3 text-left text-base font-medium tracking-wider border-b border-gray-200">Apellido Cliente</th>
-                    <th class="px-6 py-3 text-left text-base font-medium tracking-wider border-b border-gray-200">Acciones</th>
+                    <th class="p-1 px-6 py-3 text-left text-base font-medium tracking-wider border-b border-gray-200">#</th>
+                    <th class="p-1 px-6 py-3 text-left text-base font-medium tracking-wider border-b border-gray-200">Medidor</th>
+                    <th class="p-1 px-6 py-3 text-left text-base font-medium tracking-wider border-b border-gray-200">Nombre  </th>
+                    <th class="p-1 px-6 py-3 text-left text-base font-medium tracking-wider border-b border-gray-200">Apellido </th>
+                    <th class="p-1 px-6 py-3 text-left text-base font-medium tracking-wider border-b border-gray-200">Ubicación</th>
+                    <th class="p-1px-6 py-3 text-left text-base font-medium tracking-wider border-b border-gray-200">Acciones</th>
                 </tr>
             </thead>
             <tbody class="divide-y divide-gray-200 w-full">
@@ -133,7 +133,7 @@
 
 @section('js')
 
-
+@livewireScripts
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
@@ -176,19 +176,23 @@ $(document).ready(function() {
         serverSide: true,
         ajax: "{{ url('api/medidores') }}",
         columns: [
-            { data: 'id' },
-            { data: 'numero_medidor',
-                render: function (data, type, row) {
-                    return `<span class="text-primary font-weight-bold">${data}</span>`;
-                },
-            },
-            { data: 'ubicacion' },
-            { data: 'cliente_nombre' },
-            { data: 'cliente_apellido' },
-          //  { data: 'fecha_instalacion' },
-         //   { data: 'estado' },
-            { data: 'btn', orderable: false, searchable: false }
-        ],
+    { data: 'id', className: 'p-2' },
+    { 
+        data: 'numero_medidor',
+        render: function (data, type, row) {
+            return `<span class="text-primary font-weight-bold p-2">${data}</span>`;
+        },
+        className: 'p-2' // Aplicando padding a esta columna
+    },
+    { data: 'cliente_nombre', className: 'p-2' },
+    { data: 'cliente_apellido', className: 'p-2' },
+    { 
+        data: 'ubicacion', 
+        className: 'd-none d-md-table-cell p-2' // Agregando padding y ocultando en pantallas pequeñas
+    },
+    { data: 'btn', orderable: false, searchable: false, className: 'p-2' }
+],
+
         language: {
             search: "Buscar ",
             lengthMenu: "Mostrar _MENU_ registros por página",
@@ -291,46 +295,70 @@ $(document).ready(function() {
     });
 
     // Manejar la eliminación de registros con SweetAlert
-    $('#medidoresTable').on('click', '.delete-btn', function() {
-        var id = $(this).data('id');
-        var url = "{{ url('medidores') }}/" + id;
-        
-        Swal.fire({
-            title: '¿Estás seguro?',
-            text: "¡No podrás revertir esto!",
-            icon: 'warning',
-            showCancelButton: true,
-            confirmButtonColor: '#3085d6',
-            cancelButtonColor: '#d33',
-            confirmButtonText: 'Sí, eliminar',
-            cancelButtonText: 'Cancelar'
-        }).then((result) => {
-            if (result.isConfirmed) {
-                $.ajax({
-                    url: url,
-                    type: 'DELETE',
-                    data: {
-                        _token: '{{ csrf_token() }}'
-                    },
-                    success: function(response) {
-                        $('#medidoresTable').DataTable().ajax.reload();
-                        Swal.fire(
-                            'Eliminado!',
-                            'El medidor ha sido eliminado.',
-                            'success'
-                        );
-                    },
-                    error: function(xhr, status, error) {
-                        Swal.fire(
-                            'Error!',
-                            'Ocurrió un error: ' + error,
-                            'error'
-                        );
+$('#medidoresTable').on('click', '.delete-btn', function() {
+    var id = $(this).data('id');
+    var url = "{{ url('medidores') }}/" + id;
+    var numeroMedidor = $(this).closest('tr').find('td:nth-child(2)').text(); // Cambia el índice si el número de medidor no es la segunda columna
+
+    Swal.fire({
+        title: '¿Estás seguro?',
+        text: "¡No podrás revertir esto!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Sí, eliminar',
+        cancelButtonText: 'Cancelar'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            // Pide el número de medidor a eliminar
+            Swal.fire({
+                title: 'Confirmar eliminación',
+                text: `Por favor, introduce el número del medidor (${numeroMedidor}) para confirmar la eliminación.`,
+                input: 'text',
+                inputAttributes: {
+                    autocapitalize: 'off'
+                },
+                showCancelButton: true,
+                confirmButtonText: 'Eliminar',
+                cancelButtonText: 'Cancelar',
+                preConfirm: (inputNumero) => {
+                    // Comprobar que el número introducido coincida
+                    if (inputNumero !== numeroMedidor) {
+                        Swal.showValidationMessage(`El número de medidor no coincide con ${numeroMedidor}`);
                     }
-                });
-            }
-        });
+                }
+            }).then((inputResult) => {
+                if (inputResult.isConfirmed) {
+                    // Si el número es correcto, proceder a eliminar
+                    $.ajax({
+                        url: url,
+                        type: 'DELETE',
+                        data: {
+                            _token: '{{ csrf_token() }}'
+                        },
+                        success: function(response) {
+                            $('#medidoresTable').DataTable().ajax.reload();
+                            Swal.fire(
+                                'Eliminado!',
+                                'El medidor ha sido eliminado.',
+                                'success'
+                            );
+                        },
+                        error: function(xhr, status, error) {
+                            Swal.fire(
+                                'Error!',
+                                'Ocurrió un error: ' + error,
+                                'error'
+                            );
+                        }
+                    });
+                }
+            });
+        }
     });
+});
+
 });
 
 

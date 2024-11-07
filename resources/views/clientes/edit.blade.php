@@ -75,6 +75,9 @@
      @if (session('error'))
          <div class="alert alert-danger">{{ session('error') }}</div>
      @endif
+     @if (session('update'))
+         <div class="alert alert-warnig">{{ session('update') }}</div>
+     @endif
      @if (session('info'))
          <div class="alert alert-success">{{ session('info') }}</div>
      @endif
@@ -243,7 +246,59 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
 
-
+<script>
+    (function () {
+        'use strict';
+        window.addEventListener('load', function () {
+            var forms = document.getElementsByClassName('needs-validation');
+            Array.prototype.filter.call(forms, function (form) {
+                form.addEventListener('submit', function (event) {
+                    if (form.checkValidity() === false) {
+                        event.preventDefault();
+                        event.stopPropagation();
+                    }
+                    form.classList.add('was-validated');
+                }, false);
+            });
+        }, false);
+    
+        // Agregar validación mínima de caracteres para los campos de texto
+        const textFields = document.querySelectorAll('input[type="text"]');
+        textFields.forEach(field => {
+            field.addEventListener('input', function () {
+                if (field.value.length < 3) {
+                    field.setCustomValidity('El campo debe tener al menos 3 caracteres.');
+                } else {
+                    field.setCustomValidity('');
+                }
+            });
+        });
+    
+        // Validación para campos de texto solo letras
+        const nameFields = ['primer_nombre', 'segundo_nombre', 'primer_apellido', 'segundo_apellido'];
+        nameFields.forEach(fieldId => {
+            const field = document.getElementById(fieldId);
+            if (field) {
+                field.addEventListener('input', function(event) {
+                    event.target.value = event.target.value.replace(/[0-9]/g, '');
+                });
+            }
+        });
+    
+        // Validación de teléfono con longitud entre 8 y 12
+        const phoneField = document.getElementById('telefono');
+        if (phoneField) {
+            phoneField.addEventListener('input', function() {
+                if (phoneField.value.length < 8 || phoneField.value.length > 12) {
+                    phoneField.setCustomValidity('El teléfono debe tener entre 8 y 12 dígitos.');
+                } else {
+                    phoneField.setCustomValidity('');
+                }
+            });
+        }
+    })();
+    </script>
+    
 
 @stop
     

@@ -1,8 +1,9 @@
 <!DOCTYPE html>
 <html lang="es">
     <head>
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-" crossorigin="anonymous" />
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-" crossorigin="anonymous" />
+      <!-- Include FontAwesome CSS -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+
          <!-- Agrega esto en la sección head de tu HTML -->
            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" integrity="sha512-TCJ6FYD6dMj4wsiWZz6swnVMqB5RW2MaebusGM1h8zE3DlX5C4sG5ndooMU2t7pLzYl5GmMKa9oB/njpy5Ul9w==" crossorigin="anonymous" />
               <!-- Otros encabezados -->
@@ -80,10 +81,10 @@
              
        
           <div class="table-responsive">
-              <table id="usuariosTable" class="min-w-full w-100 border border-gray-300 shadow-md rounded-lg p-2">
+              <table id="usuariosTable" class="min-w-full w-100 border border-gray-300 shadow-md rounded-lg p-2 table-striped">
                   <thead class="from-green-500 to-green-600 text-white">
                       <tr>
-                          <th class="px-6 py-3 text-left text-base font-medium tracking-wider border-b border-gray-200">ID</th>
+                          <th class="px-6 py-3 text-left text-base font-medium tracking-wider border-b border-gray-200">#</th>
                           <th class="px-6 py-3 text-left text-base font-medium tracking-wider border-b border-gray-200">Nombre</th>
                           <th class="px-6 py-3 text-left text-base font-medium tracking-wider border-b border-gray-200">Email</th>
                           <th class="px-6 py-3 text-left text-base font-medium tracking-wider border-b border-gray-200">Rol</th>
@@ -131,50 +132,51 @@
                                       </button>
                                   </div>
                                   <form action="{{ route('usuarios.update', $usuario->id) }}" method="POST">
-                                      @csrf
-                                      @method('PUT')
-                                      <div class="modal-body">
-                                          <div class="form-group">
-                                              <label for="name">Nombre</label>
-                                              <input type="text" class="form-control" name="name" value="{{ $usuario->name }}" required>
-                                              @error('name')
-                                                  <div class="invalid-feedback">{{ $message }}</div>
-                                              @enderror
-                                          </div>
-  
-                                          <div class="form-group">
-                                              <label for="email">Email</label>
-                                              <input type="email" class="form-control" name="email" value="{{ $usuario->email }}">
-                                              @error('email')
-                                                  <div class="invalid-feedback">{{ $message }}</div>
-                                              @enderror
-                                          </div>
-  
-                                          <div class="form-group">
-                                              <label for="password">Password</label>
-                                              <input type="password" class="form-control" name="password" placeholder="Ingrese la password">
-                                              @error('password')
-                                                  <div class="invalid-feedback">{{ $message }}</div>
-                                              @enderror
-                                          </div>
-  
-                                          <div class="form-group">
-                                              <label for="roles">Roles</label>
-                                              <select name="roles[]" class="form-control" multiple>
-                                                  @foreach($roles as $id => $nombre)
-                                                      <option value="{{ $id }}" {{ in_array($id, $usuario->roles->pluck('id')->toArray()) ? 'selected' : '' }}>{{ $nombre }}</option>
-                                                  @endforeach
-                                              </select>
-                                              @error('roles')
-                                                  <div class="invalid-feedback">{{ $message }}</div>
-                                              @enderror
-                                          </div>
-                                      </div>
-                                      <div class="modal-footer">
-                                          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-                                          <button type="submit" class="btn btn-primary">Guardar cambios</button>
-                                      </div>
-                                  </form>
+                                    @csrf
+                                    @method('PUT')
+                                    <div class="modal-body">
+                                        <div class="form-group">
+                                            <label for="name">Nombre <i class="fas fa-user"></i></label>
+                                            <input type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ $usuario->name }}" required>
+                                            @error('name')
+                                                <div class="invalid-feedback">{{ $message }}</div>
+                                            @enderror
+                                        </div>
+                                
+                                        <div class="form-group">
+                                            <label for="email">Email <i class="fas fa-envelope"></i></label>
+                                            <input type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ $usuario->email }}">
+                                            @error('email')
+                                                <div class="invalid-feedback">{{ $message }}</div>
+                                            @enderror
+                                        </div>
+                                
+                                        <div class="form-group">
+                                            <label for="password">Password <i class="fas fa-lock"></i></label>
+                                            <input type="password" class="form-control @error('password') is-invalid @enderror" name="password" placeholder="Ingrese la password">
+                                            @error('password')
+                                                <div class="invalid-feedback">{{ $message }}</div>
+                                            @enderror
+                                        </div>
+                                
+                                        <div class="form-group">
+                                            <label for="roles">Roles <i class="fas fa-user-tag"></i></label>
+                                            <select name="roles[]" class="form-control @error('roles') is-invalid @enderror" multiple>
+                                                @foreach($roles as $id => $nombre)
+                                                    <option value="{{ $id }}" {{ in_array($id, $usuario->roles->pluck('id')->toArray()) ? 'selected' : '' }}>{{ $nombre }}</option>
+                                                @endforeach
+                                            </select>
+                                            @error('roles')
+                                                <div class="invalid-feedback">{{ $message }}</div>
+                                            @enderror
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                                        <button type="submit" class="btn btn-primary">Guardar cambios</button>
+                                    </div>
+                                </form>
+                                
                               </div>
                           </div>
                       </div>
@@ -194,49 +196,51 @@
                           <span aria-hidden="true">&times;</span>
                       </button>
                   </div>
-                  <form action="{{ route('usuarios.store') }}" method="POST">
-                      @csrf
-                      <div class="modal-body">
-                          <div class="form-group">
-                              <label for="name">Nombre</label>
-                              <input type="text" class="form-control" name="name" required>
-                              @error('name')
-                                  <div class="invalid-feedback">{{ $message }}</div>
-                              @enderror
-                          </div>
-                          <div class="form-group">
-                              <label for="email">Email</label>
-                              <input type="email" class="form-control" name="email">
-                              @error('email')
-                                  <div class="invalid-feedback">{{ $message }}</div>
-                              @enderror
-                          </div>
-  
-                          <div class="form-group">
-                              <label for="password">Password</label>
-                              <input type="password" class="form-control" name="password" placeholder="Ingrese la password">
-                              @error('password')
-                                  <span class="text text-danger">{{ $message }}</span>
-                              @enderror
-                          </div>
-  
-                          <div class="form-group">
-                              <label for="roles">Roles</label>
-                              <select name="roles[]" class="form-control" multiple>
-                                  @foreach($roles as $id => $nombre)
-                                      <option value="{{ $id }}">{{ $nombre }}</option>
-                                  @endforeach
-                              </select>
-                              @error('roles')
-                                  <span class="text text-danger">{{ $message }}</span>
-                              @enderror
-                          </div>
-                      </div>
-                      <div class="modal-footer">
-                          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-                          <button type="submit" class="btn btn-primary">Crear Usuario</button>
-                      </div>
-                  </form>
+                  <form action="{{ route('usuarios.store') }}" method="POST" class="needs-validation" novalidate>
+                    @csrf
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <label for="name">Ingrese el Primer Nombre y Apellido <i class="fas fa-user"></i></label>
+                            <input type="text" class="form-control @error('name') is-invalid @enderror" name="name" required pattern="[A-Za-zÁÉÍÓÚáéíóúÑñ\s]+" title="Por favor, ingrese solo letras">
+                            @error('name')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
+                        </div>
+                
+                        <div class="form-group">
+                            <label for="email">Ingrese el Correo <i class="fas fa-envelope"></i></label>
+                            <input type="email" class="form-control @error('email') is-invalid @enderror" name="email" required title="El correo es requerido">
+                            @error('email')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
+                        </div>
+                
+                        <div class="form-group">
+                            <label for="password">Ingrese la Contraseña <i class="fas fa-lock"></i></label>
+                            <input type="password" class="form-control @error('password') is-invalid @enderror" name="password" required placeholder="Ingrese la contraseña">
+                            @error('password')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
+                        </div>
+                
+                        <div class="form-group">
+                            <label for="roles">Ingrese el Rol del Usuario <i class="fas fa-user-tag"></i></label>
+                            <select name="roles[]" class="form-control @error('roles') is-invalid @enderror" multiple required>
+                                @foreach($roles as $id => $nombre)
+                                    <option value="{{ $id }}">{{ $nombre }}</option>
+                                @endforeach
+                            </select>
+                            @error('roles')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                        <button type="submit" class="btn btn-primary">Crear Usuario</button>
+                    </div>
+                </form>
+                
               </div>
           </div>
       </div>
@@ -247,11 +251,21 @@
   @section('css')
       <link rel="stylesheet" href="{{ asset('css/admin_custom.css') }}">
       <link rel="stylesheet" href="https://cdn.datatables.net/1.11.5/css/dataTables.bootstrap5.min.css">
+      <style>
+        .invalid-feedback {
+    display: none; /* Esto no debería estar presente */
+}
+
+.was-validated .invalid-feedback {
+    display: block; /* Asegúrate de que esté visible al aplicar la clase was-validated */
+}
+
+      </style>
   @stop
   
   @section('js')
   
-
+  @livewireScripts
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
   <script src="https://cdn.datatables.net/2.0.8/js/dataTables.js"></script>
   <script src="https://cdn.datatables.net/buttons/3.0.2/js/buttons.colVis.min.js"></script>
@@ -382,11 +396,55 @@ $(document).ready(function() {
             }
         ]
     });
+ // Manejar la eliminación de registros con SweetAlert
+ $('#usuariosTable').on('click', '.delete-btn', function() {
+        var form = $(this).closest('.delete-form'); // Obtener el formulario relacionado
+        var email = $(this).data('email'); // Obtener el correo del usuario
+
+        Swal.fire({
+            title: '¿Estás seguro?',
+            text: "¡No podrás revertir esto! El correo del usuario es: " + email,
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Sí, eliminar',
+            cancelButtonText: 'Cancelar'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                form.submit(); // Si se confirma, enviar el formulario
+            }
+        });
+    });
 });
 
 
 
   </script>
+
+<script>
+(function () {
+    'use strict'
+  
+    // Fetch all the forms we want to apply custom Bootstrap validation styles to
+    var forms = document.querySelectorAll('.needs-validation')
+  
+    // Loop over them and prevent submission
+    Array.prototype.slice.call(forms)
+      .forEach(function (form) {
+        form.addEventListener('submit', function (event) {
+          if (!form.checkValidity()) {
+            event.preventDefault()
+            event.stopPropagation()
+          }
+  
+          form.classList.add('was-validated')
+        }, false)
+      })
+  })()
+</script>
+
+  
   @stop
 
 

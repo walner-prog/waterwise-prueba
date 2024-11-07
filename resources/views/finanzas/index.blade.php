@@ -91,10 +91,8 @@
             <div class="card p-1">
                 <h3 class="text-dark">Reportes Mensuales</h3>
                                           
-                <a href="{{ route('reporte.mensuales', ['mes' => $mes, 'anio' => $anio]) }}" class=" btn btn-primary" target="_blank">Generar Reporte Mensual</a>
-
-
-                
+                <a href="{{ route('reporte.mensuales', ['mes' => $mes, 'anio' => $anio]) }}" class=" btn btn-primary mb-2" target="_blank">Generar Reporte Mensual</a>
+                <a href="{{ route('reportes.todo') }}" class="btn btn-primary mb-3">Ver Reportes PDF Mensuales</a> 
             </div>
            
         </div>

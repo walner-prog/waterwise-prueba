@@ -62,7 +62,7 @@
     </div>
   
     
-         @can('ver-perfil')
+         @can('')
          <!-- Código o vista para ver el perfil del usuario -->
          <div class="row">
             <div class="col-lg-4">
@@ -177,6 +177,7 @@
 @stop
 
 @section('js')
+@livewireScripts
 <script>
 
   

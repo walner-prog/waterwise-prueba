@@ -102,7 +102,7 @@
             </h3>
         </div>
         <div class="card-body">
-            <form action="{{ isset($tarifa) ? route('tarifas.update', $tarifa->id) : route('tarifas.store') }}" method="POST">
+            <form action="{{ isset($tarifa) ? route('tarifas.update', $tarifa->id) : route('tarifas.store') }}" method="POST" class=" needs-validation" novalidate>
                 @csrf
                 @if(isset($tarifa))
                     @method('PUT') <!-- Utiliza el método PUT si estás editando una tarifa existente -->
@@ -129,6 +129,7 @@
                                 <i class="fa-solid fa-dollar-sign"></i> Precio por m³ <span class="text-danger">*</span>
                             </label>
                             <input type="number" step="0.01" class="form-control" id="precio_por_m3" name="precio_por_m3" value="{{ old('precio_por_m3', $tarifa->precio_por_m3 ?? '') }}" required>
+                            <div class="invalid-feedback">Por favor, ingrese un precio válido (hasta 3 dígitos enteros y 2 decimales).</div>
                             @if ($errors->has('precio_por_m3'))
                                 <div class="text-danger">{{ $errors->first('precio_por_m3') }}</div>
                             @endif
@@ -215,11 +216,31 @@
 <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 
 <script>
+    // Limitar a 3 dígitos enteros y hasta 2 decimales en el campo 'precio_por_m3'
+    document.getElementById('precio_por_m3').addEventListener('input', function (e) {
+        let value = this.value;
 
+        // Permite solo 3 dígitos enteros y hasta 2 decimales
+        if (!/^\d{0,3}(\.\d{0,2})?$/.test(value)) {
+            this.value = value.slice(0, -1);
+        }
+    });
 
+    // Validación de Bootstrap
+    (function () {
+        'use strict';
+        var forms = document.querySelectorAll('.needs-validation');
+        Array.prototype.slice.call(forms).forEach(function (form) {
+            form.addEventListener('submit', function (event) {
+                if (!form.checkValidity()) {
+                    event.preventDefault();
+                    event.stopPropagation();
+                }
+                form.classList.add('was-validated');
+            }, false);
+        });
+    })();
 </script>
-
-
 
 @stop
     

@@ -50,14 +50,14 @@
 <body>
     <h1>Estado de Cuenta - {{ \Carbon\Carbon::create()->month($mes)->translatedFormat('F') }} {{ $anio }}</h1>
 
-    <h2>Total de Ingresos</h2>
+    <h2>Total de Ingresos de {{ \Carbon\Carbon::create()->month($mes)->translatedFormat('F') }} {{ $anio }}</h2>
     <p>Se generaron en total <strong>{{ $totalIngresos }} C$</strong>  de los cuales <strong>{{ $totalIngresosFacturas }} C$</strong>  son  de pagos por servicio de agua  provenientes de  {{ $numeroClientesFacturas }} clientes, equivalentes a <strong>{{ $totalMetrosCubicos }}</strong> metros cúbicos.</p>
-    <p>De los <strong>{{ $totalIngresos }} C$</strong>  <strong>{{ $totalIngresosPorVentas }} C$</strong> provienen de <strong>{{ $numeroClientesVentas }}</strong> clientes que realizaron compras de productos.</p>
+    <p>De los <strong>{{ $totalIngresos }} C$</strong>  <strong> {{ $totalIngresosVentas }} C$</strong> provienen de <strong>{{ $numeroClientesVentas }}</strong> clientes que realizaron compras de productos.</p>
     
 
  
 
-    <h2>Total de Egresos</h2>
+    <h2>Total de Egresos de  {{ \Carbon\Carbon::create()->month($mes)->translatedFormat('F') }} {{ $anio }}</h2>
     <table>
         <thead>
             <tr>
@@ -73,7 +73,7 @@
                     <td>{{ $egreso->fecha }}</td>
                     <td>{{ $egreso->descripcion }}</td>
                     <td>{{ $egreso->pagado_a }}</td>
-                    <td><span class=" badge badge-info">{{ $egreso->monto }}</span></td>
+                    <td><span class=" badge badge-info">{{ $egreso->monto }} C$</span></td>
                 </tr>
             @endforeach
         </tbody>
@@ -82,14 +82,14 @@
     <div class="row">
         <div class="col">
             <h4>Saldo del Mes</h4>
-            <p>Saldo del Mes: {{ $saldoDelMes }}</p>
-            <p>Este es el resultado de los ingresos del mes ({{ $totalIngresos }}) menos los egresos del mes ({{ $totalEgresos }}).</p>
+            <p>Saldo del Mes: <strong>{{ $saldoDelMes }} </strong>C$</p>
+            <p>Este es el resultado de los ingresos del mes <strong>({{ $totalIngresos }} C$)</strong> menos los egresos del mes <strong>({{ $totalEgresos }} C$)</strong> .</p>
         </div>
         
         <div class="col">
             <h4>Saldo Acumulado</h4>
-            <p>Nuevo Saldo Acumulado: {{ $nuevoSaldoAcumulado }}</p>
-            <p>Este saldo es el saldo acumulado anterior más el saldo del mes.</p>
+            <p>Nuevo Saldo Acumulado: <strong>{{ $nuevoSaldoAcumulado }}</strong> C$</p>
+            <p>Este saldo es el saldo acumulado  anterior que era de <strong>{{ $saldoAcumulado }} C$</strong> más el saldo del mes que fue de <strong>{{ $saldoDelMes }} C$</strong>.</p>
         </div>
         
         <div class="col">

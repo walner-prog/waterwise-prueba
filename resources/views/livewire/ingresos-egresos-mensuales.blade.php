@@ -24,7 +24,7 @@
                 <th class="text-indigo-600">Total Ingresos</th>
                 <th class="text-indigo-600">Total Egresos</th>
                 <th class="text-indigo-600">Diferencia</th>
-                <th class="text-indigo-600">Saldo Acumulado</th>
+              
             </tr>
         </thead>
         <tbody>
@@ -36,7 +36,7 @@
                     $diferencia = $item->total_ingresos - $item->total_egresos;
                     $saldoAcumulado += $diferencia;
                     $badgeClassDiferencia = $diferencia >= 0 ? 'bg-success' : 'bg-danger';
-                    $badgeClassSaldo = $saldoAcumulado >= 0 ? 'bg-primary' : 'bg-danger';
+                   
                 @endphp
                 <tr>
                     <td>{{ $item->anio }}</td>
@@ -48,14 +48,7 @@
                             {{ $diferencia }}
                         </span>
                     </td>
-                    <td>
-                        <span class="badge {{ $badgeClassSaldo }}">
-                            {{ $saldoAcumulado }}
-                        </span>
-                        @if ($saldoAcumulado < 0)
-                            <div class="text-danger">¡Saldo negativo!</div>
-                        @endif
-                    </td>
+                   
                 </tr>
             @endforeach
         </tbody>

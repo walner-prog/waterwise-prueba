@@ -122,8 +122,9 @@ Route::get('egresos', function () {
     return datatables()
         ->eloquent(Egreso::with('empleado')) // Carga la relación empleado
         ->addColumn('empleado', function(Egreso $egreso) {
-            return $egreso->empleado ? $egreso->empleado->nombre : 'N/A'; // Ajusta según el nombre del campo en el modelo Empleado
+            return $egreso->empleado ? $egreso->empleado->nombre . ' ' . $egreso->empleado->apellido : 'N/A'; // Incluye el apellido
         })
+        
         ->addColumn('btn', 'botones/actions-egresos')
         ->rawColumns(['btn'])
         ->toJson();

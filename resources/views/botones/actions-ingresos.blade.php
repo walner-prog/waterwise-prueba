@@ -7,8 +7,8 @@
  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-" crossorigin="anonymous" />
 
 @endsection
-<body class="bg-gray-100 p-4" style="width: 270px">
-    <div class="btn-wrapper">
+<body class="bg-gray-100 p-4" >
+    <div class="btn-wrapper" style="width: 250px">
         <a href="{{ route('ingresos.show', $id) }}" target="_blank" class="btn btn-purple">
             <i class="fas fa-eye"></i>
         

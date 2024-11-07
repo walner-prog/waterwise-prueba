@@ -93,7 +93,7 @@
                 <table id="empleadosTable" class="min-w-full w-full w-100 border border-gray-300 shadow-md rounded-lg p-2">
                     <thead class="bg-gradient-to-r from-blue-500 to-blue-600 text-white w-full">
                         <tr>
-                            <th class="px-6 py-3 text-left text-base font-medium tracking-wider border-b border-gray-200">ID</th>
+                            <th class="px-6 py-3 text-left text-base font-medium tracking-wider border-b border-gray-200">#</th>
                             <th class="px-6 py-3 text-left text-base font-medium tracking-wider border-b border-gray-200">Nombre</th>
                             <th class="px-6 py-3 text-left text-base font-medium tracking-wider border-b border-gray-200">Apellido</th>
                             <th class="px-6 py-3 text-left text-base font-medium tracking-wider border-b border-gray-200">Puesto</th>
@@ -121,7 +121,7 @@
 @stop
 
 @section('js')
-
+@livewireScripts
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
@@ -276,47 +276,72 @@
         ],
     });
 
-    // Manejar la eliminación de registros con SweetAlert
     $('#empleadosTable').on('click', '.delete-btn', function() {
-        var id = $(this).data('id');
-        var url = "{{ url('empleados') }}/" + id;
+    var id = $(this).data('id');
+    var url = "{{ url('empleados') }}/" + id;
 
-        Swal.fire({
-            title: '¿Estás seguro?',
-            text: "¡No podrás revertir esto!",
-            icon: 'warning',
-            showCancelButton: true,
-            confirmButtonColor: '#3085d6',
-            cancelButtonColor: '#d33',
-            confirmButtonText: 'Sí, eliminar',
-            cancelButtonText: 'Cancelar'
-        }).then((result) => {
-            if (result.isConfirmed) {
-                $.ajax({
-                    url: url,
-                    type: 'DELETE',
-                    data: {
-                        _token: '{{ csrf_token() }}'
-                    },
-                    success: function(response) {
-                        $('#empleadosTable').DataTable().ajax.reload();
-                        Swal.fire(
-                            'Eliminado!',
-                            'El empleado ha sido eliminado.',
-                            'success'
-                        );
-                    },
-                    error: function(xhr, status, error) {
-                        Swal.fire(
-                            'Error!',
-                            'Ocurrió un error: ' + error,
-                            'error'
-                        );
+    // Obtén el nombre y apellido del empleado desde la fila
+    var empleadoNombre = $(this).closest('tr').find('td:nth-child(2)').text(); // Cambia el índice según la columna
+    var empleadoApellido = $(this).closest('tr').find('td:nth-child(3)').text(); // Cambia el índice según la columna
+
+    Swal.fire({
+        title: '¿Estás seguro?',
+        text: "¡No podrás revertir esto!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Sí, eliminar',
+        cancelButtonText: 'Cancelar'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            // Pide confirmar el nombre completo del empleado antes de eliminar
+            Swal.fire({
+                title: 'Confirmar eliminación',
+                html: `Por favor, copia el nombre completo del empleado: <strong>${empleadoNombre} ${empleadoApellido}</strong> y pégalo a continuación para confirmar la eliminación.`,
+                input: 'text',
+                inputAttributes: {
+                    autocapitalize: 'off'
+                },
+                showCancelButton: true,
+                confirmButtonText: 'Eliminar',
+                cancelButtonText: 'Cancelar',
+                preConfirm: (inputNombre) => {
+                    // Comprobar que el nombre completo introducido coincida
+                    if (inputNombre !== `${empleadoNombre} ${empleadoApellido}`) {
+                        Swal.showValidationMessage(`El nombre introducido no coincide con ${empleadoNombre} ${empleadoApellido}`);
                     }
-                });
-            }
-        });
+                }
+            }).then((inputResult) => {
+                if (inputResult.isConfirmed) {
+                    // Si el nombre es correcto, proceder a eliminar
+                    $.ajax({
+                        url: url,
+                        type: 'DELETE',
+                        data: {
+                            _token: '{{ csrf_token() }}'
+                        },
+                        success: function(response) {
+                            $('#empleadosTable').DataTable().ajax.reload();
+                            Swal.fire(
+                                'Eliminado!',
+                                'El empleado ha sido eliminado.',
+                                'success'
+                            );
+                        },
+                        error: function(xhr, status, error) {
+                            Swal.fire(
+                                'Error!',
+                                'Ocurrió un error: ' + error,
+                                'error'
+                            );
+                        }
+                    });
+                }
+            });
+        }
     });
+});
 });
 
 </script>

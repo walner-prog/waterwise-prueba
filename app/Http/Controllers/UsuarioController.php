@@ -8,8 +8,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\DB;
 use Spatie\Permission\Models\Role;
 use Illuminate\Support\Arr;
-use Illuminate\Support\Facades\File;
-use Illuminate\Support\Facades\Response;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Validator;
 
 class UsuarioController extends Controller
@@ -139,11 +138,23 @@ public function show($id)
         return redirect()->route('usuarios.index')->with('update', 'Usuario actualizado exitosamente.');
     }
 
+
     public function destroy($id)
-    {
-        User::find($id)->delete();
+{
+    try {
+        $user = User::findOrFail($id);
+        $user->delete();
+
+        // Redirige al índice con un mensaje de éxito
         return redirect()->route('usuarios.index')->with('delete', 'Usuario eliminado exitosamente.');
+    } catch (\Exception $e) {
+        // Registra el error en los logs
+        Log::error('Error en el control de usuarios: '.$e->getMessage());
+        
+        // Redirige al índice con un mensaje de error
+        return redirect()->route('usuarios.index')->with('error', 'Ocurrió un error al eliminar el usuario.');
     }
+}
 
     public function showChangePasswordForm()
     {

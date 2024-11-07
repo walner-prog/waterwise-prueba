@@ -185,7 +185,30 @@
 
 
 
-
+<script>
+    $(document).ready(function() {
+        $('.select2').select2({
+            placeholder: "Selecciona una opción",
+            allowClear: true
+        });
+    
+        // Livewire event to update Select2 when the data changes
+        Livewire.on('select2Updated', () => {
+            $('.select2').select2({
+                placeholder: "Selecciona una opción",
+                allowClear: true
+            });
+        });
+    
+        // Re-initialize select2 when the modal is opened or the component is updated
+        Livewire.hook('message.processed', (message, component) => {
+            $('.select2').select2({
+                placeholder: "Selecciona una opción",
+                allowClear: true
+            });
+        });
+    });
+    </script>
 
 @stop
     

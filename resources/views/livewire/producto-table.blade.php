@@ -47,7 +47,7 @@
   <table class="min-w-full w-full border w-100 border-gray-300 shadow-md rounded-lg p-2 table-striped border-bottom">
       <thead class="bg-gradient-to-r from-blue-500 to-blue-600 text-white w-full">
           <tr>
-              <th class="px-6 py-3 p-1 text-left text-base font-medium tracking-wider border-b border-gray-200">ID</th>
+              <th class="px-6 py-3 p-1 text-left text-base font-medium tracking-wider border-b border-gray-200">#</th>
               <th class="px-6 py-3 p-1 text-left text-base font-medium tracking-wider border-b border-gray-200">Nombre</th>
               <th class="px-6 py-3 p-1 text-left text-base font-medium tracking-wider border-b border-gray-200">Descripción</th>
               <th class="px-6 py-3 p-1 text-left text-base font-medium tracking-wider border-b border-gray-200">Stock</th>
@@ -61,7 +61,19 @@
               <tr class="">
                   <td class="px-6 py-3 p-1 text-left text-base font-medium tracking-wider border-b border-gray-200">{{ $producto->id }}</td>
                   <td class="px-6 py-3 p-1 text-left text-base font-medium tracking-wider border-b border-gray-200">{{ $producto->nombre }}</td>
-                  <td class="px-6 py-3 p-1 text-left text-base font-medium tracking-wider border-b border-gray-200">{{ $producto->descripcion }}</td>
+                  <td class="px-6 py-3 p-1 text-left text-base font-medium tracking-wider border-b border-gray-200">
+                    @if(strlen($producto->descripcion) > 30)
+                        <span>
+                            {{ isset($descripcionesVisibles[$producto->id]) ? $producto->descripcion : Str::limit($producto->descripcion, 30) }}
+                        </span>
+                        <a href="javascript:void(0);" wire:click="toggleDescripcion({{ $producto->id }})" class="text-blue-600">
+                            {{ isset($descripcionesVisibles[$producto->id]) ? 'Ver menos' : 'Ver más' }}
+                        </a>
+                    @else
+                        {{ $producto->descripcion }}
+                    @endif
+                </td>
+                
 
                   <!-- Stock con color según la cantidad -->
                   <td class="px-6 py-3 p-1 text-left text-base font-medium tracking-wider border-b border-gray-200">
@@ -79,18 +91,24 @@
                   <td class="px-6 py-3 p-1 text-left text-base font-medium tracking-wider border-b border-gray-200 text-green-600">C${{ number_format($producto->precio_venta, 2) }}</td>
 
                   <!-- Botones de acción con permisos -->
-                  <td class=" p-1">
-                      @can('ver-medidores')
-                      <button class=" btn btn-purple btn-sm" wire:click="loadProductDetails({{ $producto->id }})">Ver</button>
-
-                      @endcan
-                      @can('editar-medidores')
-                          <button wire:click="edit({{ $producto->id }})" class="btn btn-green btn-sm">Editar</button>
-                      @endcan
-                      @can('borrar-medidores')
-                          <button wire:click="delete({{ $producto->id }})" class="btn btn-orange btn-sm">Eliminar</button>
-                      @endcan
-                  </td>
+                  <td class="p-1">
+                    @can('ver-medidores')
+                        <button class="btn btn-purple btn-sm" wire:click="loadProductDetails({{ $producto->id }})">
+                            <i class="fas fa-eye"></i> <!-- Icono para "Ver" -->
+                        </button>
+                    @endcan
+                    @can('editar-medidores')
+                        <button wire:click="edit({{ $producto->id }})" class="btn btn-green btn-sm">
+                            <i class="fas fa-edit"></i> <!-- Icono para "Editar" -->
+                        </button>
+                    @endcan
+                    @can('borrar-medidores')
+                        <button wire:click="delete({{ $producto->id }})" class="btn btn-orange btn-sm">
+                            <i class="fas fa-trash"></i> <!-- Icono para "Eliminar" -->
+                        </button>
+                    @endcan
+                </td>
+                
               </tr>
               
           @endforeach

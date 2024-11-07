@@ -4,7 +4,7 @@ namespace App\Console;
 
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
-
+use Carbon\Carbon;
 class Kernel extends ConsoleKernel
 {
     /**
@@ -16,6 +16,9 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule)
     {
         // $schedule->command('inspire')->hourly();
+        // comando al planificador de tareas (app/Console/Kernel.php) para que se ejecute el último día de cada mes:
+      //  $schedule->command('reporte:generar-mensual')->monthlyOn(Carbon::now()->endOfMonth()->day, '23:59');
+      $schedule->command('reporte:generar-mensual')->everyMinute();
     }
 
     /**
@@ -29,4 +32,5 @@ class Kernel extends ConsoleKernel
 
         require base_path('routes/console.php');
     }
+
 }

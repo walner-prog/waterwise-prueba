@@ -145,6 +145,10 @@
                                 <div class="text-danger">{{ $errors->first('medidor_id') }}</div>
                             @endif
                         </div>
+                        <input type="hidden" class="form-control" id="cliente_id" name="cliente_id" value="{{ old('cliente_id') }}" required readonly>
+                            @if ($errors->has('cliente_id'))
+                                <div class="text-danger">{{ $errors->first('cliente_id') }}</div>
+                            @endif
                     </div>
                     
                     
@@ -154,23 +158,14 @@
                                 Lectura Anterior <span class="text-danger">*</span>
                                 <span class="text-muted ">Este campo se llena automáticamente</span>
                             </label>
-                            <input type="number" class="form-control" id="lectura_anterior" name="lectura_anterior" value="{{ old('lectura_anterior') }}" required placeholder="Este campo se llena automáticamente">
+                            <input type="number" class="form-control" id="lectura_anterior" name="lectura_anterior" value="{{ old('lectura_anterior') }}" required placeholder="Este campo se llena automáticamente" readonly>
                             @if ($errors->has('lectura_anterior'))
                                 <div class="text-danger">{{ $errors->first('lectura_anterior') }}</div>
                             @endif
                         </div>
                     </div>
 
-                    <div class="col-lg-6">
-                        <div class="form-group">
-                            <label for="cliente_id">Cliente ID <span class="text-danger">*</span></label>
-                            <input type="text" class="form-control" id="cliente_id" name="cliente_id" value="{{ old('cliente_id') }}" required readonly>
-                            @if ($errors->has('cliente_id'))
-                                <div class="text-danger">{{ $errors->first('cliente_id') }}</div>
-                            @endif
-                        </div>
-                        
-                    </div>
+                  
                     
                     <div class="col-lg-6">
                         <div class="form-group">
@@ -280,11 +275,13 @@
     </div>
   </div>
   
-  <!-- Asegúrate de incluir el JavaScript de Bootstrap para que funcione el modal -->
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
   
-        
+  
+        <br>
+        <br>
+        <br>
     </div>
+    
    
 @stop
 
@@ -310,7 +307,8 @@
 <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
 <script src="https://cdn.datatables.net/1.11.5/js/dataTables.bootstrap5.min.js"></script>
 
-
+<!-- Asegúrate de incluir el JavaScript de Bootstrap para que funcione el modal -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>

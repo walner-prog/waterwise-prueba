@@ -165,6 +165,29 @@ public function show($id)
     return view('lecturas_mensuales.show', compact('lectura'));
 }
 
+public function getLecturaDetalle($id)
+{
+    $lectura = LecturaMensual::with('medidor.cliente')->find($id);
+
+    if (!$lectura) {
+        return response()->json(['error' => 'Lectura no encontrada'], 404);
+    }
+
+    return response()->json([
+        'medidor_id' => $lectura->medidor_id,
+        'cliente_nombre' => $lectura->medidor && $lectura->medidor->cliente ? 
+                            $lectura->medidor->cliente->primer_nombre . ' ' . $lectura->medidor->cliente->primer_apellido : 'No disponible',
+        'lectura_anterior' => $lectura->lectura_anterior,
+        'lectura_actual' => $lectura->lectura_actual,
+        'consumo' => $lectura->consumo,
+        'fecha_lectura' => \Carbon\Carbon::parse($lectura->fecha_lectura)->format('d/m/Y'),
+        'fecha_inicio' => \Carbon\Carbon::parse($lectura->fecha_inicio)->format('d/m/Y'),
+        'fecha_fin' => \Carbon\Carbon::parse($lectura->fecha_fin)->format('d/m/Y'),
+        'mes_leido' => ucfirst($lectura->mes_leido)
+    ]);
+}
+
+
 
 public function edit($id)
 {

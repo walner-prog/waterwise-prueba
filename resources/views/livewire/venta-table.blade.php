@@ -17,7 +17,7 @@
             <table class="min-w-full w-full border w-100 border-gray-300 shadow-md rounded-lg p-2 table-striped border-bottom">
                 <thead class="bg-gradient-to-r from-blue-500 to-blue-600 text-white w-full">
                     <tr>
-                        <th class="px-6 py-3 p-1 text-left text-base font-medium tracking-wider border-b border-gray-200">ID</th>
+                        <th class="px-6 py-3 p-1 text-left text-base font-medium tracking-wider border-b border-gray-200">#</th>
                         <th class="px-6 py-3 p-1 text-left text-base font-medium tracking-wider border-b border-gray-200">Producto</th>
                         <th class="px-6 py-3 p-1 text-left text-base font-medium tracking-wider border-b border-gray-200">Cantidad</th>
                         <th class="px-6 py-3 p-1 text-left text-base font-medium tracking-wider border-b border-gray-200">Precio de Venta</th>
@@ -35,15 +35,22 @@
                             <td class="px-6 py-3 p-1 text-left text-base font-medium tracking-wider border-b border-gray-200 text-blue-600">C${{ number_format($venta->total_pagar, 2) }}</td>
                             <td class="p-1">
                                 @can('ver-medidores')
-                                    <button class="btn btn-purple btn-sm" wire:click="loadVentaDetails({{ $venta->id }})">Ver</button>
+                                    <button class="btn btn-purple btn-sm" wire:click="loadVentaDetails({{ $venta->id }})">
+                                        <i class="fas fa-eye"></i> <!-- Icono para "Ver" -->
+                                    </button>
                                 @endcan
                                 @can('editar-medidores')
-                                    <button wire:click="edit({{ $venta->id }})" class="btn btn-green btn-sm">Editar</button>
+                                    <button wire:click="edit({{ $venta->id }})" class="btn btn-green btn-sm">
+                                        <i class="fas fa-edit"></i> <!-- Icono para "Editar" -->
+                                    </button>
                                 @endcan
                                 @can('borrar-medidores')
-                                    <button wire:click="delete({{ $venta->id }})" class="btn btn-orange btn-sm">Eliminar</button>
+                                    <button wire:click="delete({{ $venta->id }})" class="btn btn-orange btn-sm">
+                                        <i class="fas fa-trash"></i> <!-- Icono para "Eliminar" -->
+                                    </button>
                                 @endcan
                             </td>
+                            
                         </tr>
                     @endforeach
                 </tbody>
@@ -81,11 +88,10 @@
                                 </select>
                                 @error('producto_id') <span class="text-danger">{{ $message }}</span> @enderror
                             </div>
-                           
-                            
+                    
                             <div class="form-group">
                                 <label>Cliente</label>
-                                <select wire:model="cliente_id" class="form-control select2" id="select2">
+                                <select wire:model="cliente_id" class="form-control select2" id="select-cliente">
                                     <option value="">Selecciona un cliente</option>
                                     @foreach($clientes as $cliente)
                                         <option value="{{ $cliente->id }}">
@@ -95,36 +101,34 @@
                                 </select>
                                 @error('cliente_id') <span class="text-danger">{{ $message }}</span> @enderror
                             </div>
-                            
-                            
-                            
+                    
                             <div class="form-group">
                                 <label>Cantidad</label>
                                 <input type="number" wire:model="cantidad" class="form-control" placeholder="Cantidad vendida">
                                 @error('cantidad') <span class="text-danger">{{ $message }}</span> @enderror
                             </div>
-
+                    
                             <div class="form-group">
                                 <label>Precio de Venta</label>
-                                <input type="number" step="0.01" wire:model="precio_venta" class="form-control" placeholder="Precio de venta">
+                                <input type="number" step="0.01" wire:model="precio_venta" class="form-control" placeholder="Precio de venta" readonly>
                                 @error('precio_venta') <span class="text-danger">{{ $message }}</span> @enderror
                             </div>
-
+                    
                             <div class="form-group">
                                 <label>Total a Pagar</label>
                                 <input type="number" step="0.01" wire:model="total_pagar" class="form-control" placeholder="Total a pagar" readonly>
                             </div>
                         </div>
-
+                    
                         <div class="modal-footer">
                             <button type="button" wire:click="$set('modalOpen', false)" class="btn btn-secondary">Cerrar</button>
                             <button type="submit" class="btn btn-primary">{{ $editMode ? 'Actualizar' : 'Guardar' }}</button>
                         </div>
                     </form>
+                    
                 </div>
             </div>
         </div>
     @endif
 
-   
 </div>

@@ -195,6 +195,24 @@
     });
 </script>
 
+<script>
+    function verMas(productoId) {
+        const descripcionCompleta = @json($productos->map(fn($producto) => [$producto->id => $producto->descripcion])->toArray());
+        const descripcionElement = document.getElementById('desc-' + productoId);
+        const verMasLink = document.querySelector(`#desc-${productoId} + a`);
+
+        // Si la descripción está completa, ocultar y mostrar el resumen
+        if (descripcionElement.innerHTML.length > 40) {
+            if (verMasLink.innerHTML === "Ver más") {
+                descripcionElement.innerHTML = descripcionCompleta[productoId]; // Mostrar descripción completa
+                verMasLink.innerHTML = "Ver menos"; // Cambiar texto del botón
+            } else {
+                descripcionElement.innerHTML = descripcionElement.innerHTML.substring(0, 40); // Mostrar solo los primeros 70 caracteres
+                verMasLink.innerHTML = "Ver más"; // Cambiar texto del botón
+            }
+        }
+    }
+</script>
 
 
 

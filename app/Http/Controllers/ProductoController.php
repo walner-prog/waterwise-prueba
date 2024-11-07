@@ -6,6 +6,10 @@ use Illuminate\Http\Request;
 
 class ProductoController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
     // Mostrar una lista de productos
     public function index()
     {

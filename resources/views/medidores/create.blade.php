@@ -106,7 +106,7 @@
             </h3>
         </div>
         <div class="card-body">
-            <form action="{{ route('medidores.store') }}" method="POST">
+            <form action="{{ route('medidores.store') }}" method="POST" class=" needs-validation" novalidate>
                 @csrf
                 <div class="row">
                     <!-- Número de Medidor -->
@@ -115,12 +115,17 @@
                             <label for="numero_medidor" class="bold">
                                 <i class="fa-solid fa-hashtag"></i> Número de Medidor <span class="text-danger">*</span>
                             </label>
-                            <input type="number" class="form-control" id="numero_medidor" name="numero_medidor" placeholder="Ingrese el numero unico de medidor aqui" value="{{ old('numero_medidor') }}" required>
+                            <input type="text" class="form-control" id="numero_medidor" name="numero_medidor" 
+                                   placeholder="Ingrese el número único de medidor aquí" required pattern="^[0-9]{6,}$" 
+                                   inputmode="numeric" maxlength="10">
+                            <div class="invalid-feedback">El número de medidor debe tener al menos 6 dígitos y no ser negativo.</div>
+                            <div class="valid-feedback">Número de medidor válido.</div>
                             @if ($errors->has('numero_medidor'))
                                 <div class="text-danger">{{ $errors->first('numero_medidor') }}</div>
                             @endif
                         </div>
                     </div>
+                    
     
                     <!-- Ubicación -->
                     <div class="col-lg-6">
@@ -160,7 +165,7 @@
                     </div>
     
                     <!-- ID Cliente Seleccionado -->
-                    <div class="col-lg-3">
+                    <div class="col-lg-3" hidden>
                         <div class="form-group">
                             <label for="cliente_id_id" class="bold">
                                 <i class="fa-solid fa-id-card"></i> ID Cliente Seleccionado <span class="text-danger">*</span>
@@ -537,7 +542,27 @@ $(document).ready(function() {
 </script>
 
 
+<script>
+    // Validación en el campo para permitir solo números
+    document.getElementById('numero_medidor').addEventListener('input', function (e) {
+        this.value = this.value.replace(/[^0-9]/g, ''); // Remueve cualquier caracter que no sea número
+    });
 
+    // Validación de Bootstrap para mostrar feedback
+    (function () {
+        'use strict';
+        var forms = document.querySelectorAll('.needs-validation');
+        Array.prototype.slice.call(forms).forEach(function (form) {
+            form.addEventListener('submit', function (event) {
+                if (!form.checkValidity()) {
+                    event.preventDefault();
+                    event.stopPropagation();
+                }
+                form.classList.add('was-validated');
+            }, false);
+        });
+    })();
+</script>
 @stop
     
 </body>

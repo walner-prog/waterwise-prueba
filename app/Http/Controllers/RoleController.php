@@ -34,16 +34,20 @@ class RoleController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'name' => 'required',
-            'permission' => 'required',
+            'name' => 'required|string|max:255',
+            'permission' => 'required|array',
+        ], [
+            'name.required' => 'El nombre del rol es obligatorio. Por favor, ingrese un nombre válido.',
+            'permission.required' => 'Debes seleccionar al menos un permiso para el rol.',
         ]);
-
+    
         $role = Role::create(['name' => $request->input('name')]);
         $role->syncPermissions($request->input('permission'));
        
         return redirect()->route('roles.index')
-                         ->with('info', 'Roll creado con éxito.');
+                         ->with('info', '¡El rol ha sido creado exitosamente! Ahora puedes asignar permisos a este rol.');
     }
+    
 
     public function show($id)
     {

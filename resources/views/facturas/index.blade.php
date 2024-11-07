@@ -98,7 +98,7 @@
         <table id="facturasTable" class="min-w-full w-full w-100 border border-gray-300 shadow-md rounded-lg p-2">
             <thead class="bg-gradient-to-r from-blue-500 to-blue-600 text-white w-full">
                 <tr>
-                    <th class="px-6 py-3 text-left text-base font-medium tracking-wider border-b border-gray-200">ID</th>
+                    <th class="px-6 py-3 text-left text-base font-medium tracking-wider border-b border-gray-200">#</th>
                     <th class="px-6 py-3 text-left text-base font-medium tracking-wider border-b border-gray-200">Cliente</th>
                     <th class="px-6 py-3 text-left text-base font-medium tracking-wider border-b border-gray-200">#. Medidor</th>
                     <th class="px-6 py-3 text-left text-base font-medium tracking-wider border-b border-gray-200">#. Lectura</th>
@@ -125,7 +125,7 @@
 @stop
 
 @section('js')
-
+@livewireScripts
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
@@ -181,7 +181,7 @@ $(document).ready(function() {
          
             { data: 'medidor.numero_medidor',
                 render: function (data, type, row) {
-                    return ` <span class="badge bg-indigo font-weight-bold">$${data}</span>`;
+                    return ` <span class="badge bg-indigo font-weight-bold">C$${data}</span>`;
                 }
             },
             
@@ -192,18 +192,18 @@ $(document).ready(function() {
             },
             { data: 'tarifa.precio_por_m3',
                 render: function (data, type, row) {
-                    return ` <span class="badge bg-success font-weight-bold">$${data}</span>`;
+                    return ` <span class="badge bg-success font-weight-bold">C$${data}</span>`;
                 }
             },
            
             { data: 'fecha_factura',
                 render: function (data, type, row) {
-                    return ` <span class=" text-info font-weight-bold">$${data}</span>`;
+                    return ` <span class=" text-info font-weight-bold">${data}</span>`;
                 }
             },
             { data: 'monto_total',
                 render: function (data, type, row) {
-                    return ` <span class=" text-indigo font-weight-bold">$${data}</span>`;
+                    return ` <span class=" text-indigo font-weight-bold">C$${data}</span>`;
                 }
             },
             { data: 'estado_pago',

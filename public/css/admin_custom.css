@@ -695,3 +695,33 @@ background: linear-gradient(to right, #FFFFFF, #f8f8f8); /* W3C, IE 10+/ Edge, F
       color: #2c2b2b; /* Texto oscuro */
   }
 }
+
+@media (max-width: 767px) {
+  #lecturasTable th, #lecturasTable td {
+      font-size: 0.7rem; /* Cambia el tamaño de la fuente para pantallas pequeñas */
+  }
+}
+
+@media (max-width: 767px) {
+  .btn {
+      font-size: 0.7rem; /* Cambia el tamaño de la fuente para pantallas pequeñas */
+      padding: 0.4rem 0.8rem; /* Ajusta el espaciado interno del botón */
+  }
+
+  .btn-wrapper {
+      width: auto; /* Asegúrate de que el contenedor se ajuste al contenido */
+  }
+}
+
+/* Aplica un margen superior específico en pantallas pequeñas */
+@media (max-width: 576px) {
+  .toggle-container {
+      margin-top: 100px; /* Cambia 20px al valor que desees */
+  }
+}
+
+@media (max-width: 768px) {
+  .ubicacion-col { /* Asegúrate de usar la clase correspondiente */
+      display: none;
+  }
+}

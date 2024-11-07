@@ -102,7 +102,7 @@
         <table id="tarifasTable" class="min-w-full w-full w-100 border border-gray-300 shadow-md rounded-lg p-2">
             <thead class="bg-gradient-to-r from-blue-500 to-blue-600 text-white w-full">
                 <tr>
-                    <th class="px-6 py-3 text-left text-base font-medium tracking-wider border-b border-gray-200">ID</th>
+                    <th class="px-6 py-3 text-left text-base font-medium tracking-wider border-b border-gray-200">#</th>
                     <th class="px-6 py-3 text-left text-base font-medium tracking-wider border-b border-gray-200">Tipo de Tarifa</th>
                     <th class="px-6 py-3 text-left text-base font-medium tracking-wider border-b border-gray-200">Precio por m³</th>
                     <th class="px-6 py-3 text-left text-base font-medium tracking-wider border-b border-gray-200">Descripción</th>
@@ -129,7 +129,7 @@
 @stop
 
 @section('js')
-
+@livewireScripts
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
@@ -285,46 +285,60 @@ $(document).ready(function() {
     });
 
     // Manejar la eliminación de registros con SweetAlert
-    $('#tarifasTable').on('click', '.delete-btn', function() {
-        var id = $(this).data('id');
-        var url = "{{ url('tarifas') }}/" + id;
-        
-        Swal.fire({
-            title: '¿Estás seguro?',
-            text: "¡No podrás revertir esto!",
-            icon: 'warning',
-            showCancelButton: true,
-            confirmButtonColor: '#3085d6',
-            cancelButtonColor: '#d33',
-            confirmButtonText: 'Sí, eliminar',
-            cancelButtonText: 'Cancelar'
-        }).then((result) => {
-            if (result.isConfirmed) {
-                $.ajax({
-                    url: url,
-                    type: 'DELETE',
-                    data: {
-                        _token: '{{ csrf_token() }}'
-                    },
-                    success: function(response) {
-                        $('#tarifasTable').DataTable().ajax.reload();
-                        Swal.fire(
-                            'Eliminado!',
-                            'La tarifa ha sido eliminada.',
-                            'success'
-                        );
-                    },
-                    error: function(xhr, status, error) {
-                        Swal.fire(
-                            'Error!',
-                            'Ocurrió un error: ' + error,
-                            'error'
-                        );
-                    }
-                });
+$('#tarifasTable').on('click', '.delete-btn', function() {
+    var id = $(this).data('id');
+    var url = "{{ url('tarifas') }}/" + id;
+
+    // Obtén el tipo de tarifa y precio por m³ desde la fila de la tabla
+    var tipoTarifa = $(this).closest('tr').find('td:nth-child(2)').text(); // Ajusta el índice según la columna
+    var precioPorM3 = $(this).closest('tr').find('td:nth-child(3)').text(); // Ajusta el índice según la columna
+
+    Swal.fire({
+        title: '¿Estás seguro?',
+        html: `Eliminarás la tarifa del tipo <strong>${tipoTarifa}</strong> con un precio de <strong>${precioPorM3}</strong> por m³.<br>Por favor, copia y pega el tipo de tarifa para confirmar la eliminación.`,
+        icon: 'warning',
+        input: 'text',
+        inputPlaceholder: 'Confirma el tipo de tarifa',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Sí, eliminar',
+        cancelButtonText: 'Cancelar',
+        preConfirm: (inputValue) => {
+            // Verificar si el tipo de tarifa ingresado coincide
+            if (inputValue !== tipoTarifa) {
+                Swal.showValidationMessage(`El tipo de tarifa no coincide con ${tipoTarifa}`);
+                return false;
             }
-        });
+        }
+    }).then((result) => {
+        if (result.isConfirmed) {
+            $.ajax({
+                url: url,
+                type: 'DELETE',
+                data: {
+                    _token: '{{ csrf_token() }}'
+                },
+                success: function(response) {
+                    $('#tarifasTable').DataTable().ajax.reload();
+                    Swal.fire(
+                        'Eliminado!',
+                        'La tarifa ha sido eliminada.',
+                        'success'
+                    );
+                },
+                error: function(xhr, status, error) {
+                    Swal.fire(
+                        'Error!',
+                        'Ocurrió un error: ' + error,
+                        'error'
+                    );
+                }
+            });
+        }
     });
+});
+
 });
 
 

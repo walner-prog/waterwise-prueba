@@ -7,8 +7,8 @@
  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-" crossorigin="anonymous" />
 
 @endsection
-<body class="bg-gray-100 p-4" style="width: 270px">
-    <div class="btn-wrapper">
+<body class="bg-gray-100 p-4" >
+    <div class="btn-wrapper" style="width: 250px">
         <a href="{{ route('usuarios.show', $id) }}" target="_blank" class="btn btn-purple">
             <i class="fas fa-eye"></i>
          
@@ -16,10 +16,10 @@
             <i class="fas fa-edit"></i>
            
         </a>
-        <button type="button" class="btn btn-orange delete-btn" data-id="{{ $id }}">
+        <button type="button" class="btn btn-orange delete-btn" data-id="{{ $id }}" data-email="{{ $email }}">
             <i class="fas fa-trash"></i>
-           
         </button>
+        
     </div>
 
     <!-- FontAwesome CDN -->

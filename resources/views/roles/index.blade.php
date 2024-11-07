@@ -79,6 +79,7 @@
                     <table class="min-w-full w-100 border border-gray-300 shadow-md rounded-lg p-2 ">
                         <thead class="from-green-500 to-green-600 text-white">
                             <tr>
+                                <th class="px-4 py-3 text-left">#</th>
                                 <th class="px-4 py-3 text-left">Rol</th>
                                 <th class="px-6 py-3 text-left text-base font-medium tracking-wider border-b border-gray-200" style="width: 300px">Acciones</th>
                             </tr>
@@ -86,6 +87,7 @@
                         <tbody>
                             @foreach ($roles as $role)
                                 <tr>
+                                    <td class="px-4 py-3">{{ $role->id }}</td>
                                     <td class="px-4 py-3">{{ $role->name }}</td>
                                     <td class="px-4 py-3 text-right">
                                         @can('ver-roles')

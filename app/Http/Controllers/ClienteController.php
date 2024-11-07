@@ -242,20 +242,6 @@ public function clientesAllPdf()
      return view('clientes.import');
  }
 
- // Método para manejar la importación
- public function import(Request $request)
- {
-     $request->validate([
-         'file' => 'required|mimes:xlsx,csv',
-     ]);
- 
-     $import = new ClientesImport;
-     Excel::import($import, $request->file('file'));
-
- 
- 
-     return redirect()->route('clientes.index')->with('info', 'Clientes importados con éxito.');
- }
  
 
 }

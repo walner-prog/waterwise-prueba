@@ -23,10 +23,11 @@ class ProductoTable extends Component
     public $precio_venta;
     public $fecha_creacion;
     public $hasLowStockProducts = false;
+    public $descripcionesVisibles = [];
 
     protected $rules = [
-       // 'nombre' => 'required|string|regex:/^[a-zA-Z\s]+$/',
-       // 'descripcion' => 'required|string|regex:/^[a-zA-Z\s]+$/',
+        'nombre' => 'required|string',
+        'descripcion' => 'required|string',
         'stok' => 'required|integer|min:1|max:120',
         'precio_compra' => 'required|numeric|min:1',
         'precio_venta' => 'required|numeric|min:1',
@@ -122,6 +123,17 @@ public function delete($id)
         } else {
             // Si no hay productos con bajo stock, muestra un mensaje de todo en orden
             $this->dispatchBrowserEvent('low-stock-alert', ['message' => 'Todos los productos tienen suficiente stock.']);
+        }
+    }
+
+    public function toggleDescripcion($productoId)
+    {
+        if (isset($this->descripcionesVisibles[$productoId])) {
+            // Alternar la visibilidad
+            unset($this->descripcionesVisibles[$productoId]);
+        } else {
+            // Hacer visible
+            $this->descripcionesVisibles[$productoId] = true;
         }
     }
     

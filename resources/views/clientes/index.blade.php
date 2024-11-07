@@ -94,6 +94,9 @@
     @if (session('error'))
         <div class="alert alert-danger">{{ session('error') }}</div>
     @endif
+    @if (session('update'))
+        <div class="alert alert-warning">{{ session('update') }}</div>
+    @endif
     @if (session('info'))
         <div class="alert alert-success">{{ session('info') }}</div>
     @endif
@@ -113,17 +116,17 @@
 
     @can('ver-clientes')
     <div class="table-responsive">
-        <table id="clientesTable" class="min-w-full border w-100 border-gray-300 shadow-md rounded-lg p-2">
+        <table id="clientesTable" class="min-w-full border w-100 border-gray-300 shadow-md rounded-lg p-2 table-striped">
             <thead class="bg-gradient-to-r from-blue-500 to-blue-600 text-white">
                 <tr>
-                    <th class="px-6 py-3 text-left text-base font-medium tracking-wider border-b border-gray-200">ID</th>
-                    <th class="px-6 py-3 text-left text-base font-medium tracking-wider border-b border-gray-200">Primer Nombre</th>
-                    <th class="px-6 py-3 text-left text-base font-medium tracking-wider border-b border-gray-200">Primer Apellido</th>
-                    <th class="px-6 py-3 text-left text-base font-medium tracking-wider border-b border-gray-200">Dirección</th>
-                    <th class="px-6 py-3 text-left text-base font-medium tracking-wider border-b border-gray-200">Teléfono</th>
-                    <th class="px-6 py-3 text-left text-base font-medium tracking-wider border-b border-gray-200">Email</th>
-                    <th class="px-6 py-3 text-left text-base font-medium tracking-wider border-b border-gray-200">Fecha de Registro</th>
-                    <th class="px-6 py-3 text-left text-base font-medium tracking-wider border-b border-gray-200">Acciones</th>
+                    <th class="p-2 px-6 py-3 text-left text-base font-medium tracking-wider border-b border-gray-200">#</th>
+                    <th class="p-2 px-6 py-3 text-left text-base font-medium tracking-wider border-b border-gray-200"> Nombre</th>
+                    <th class="p-2 px-6 py-3 text-left text-base font-medium tracking-wider border-b border-gray-200">Apellido</th>
+                    <th class="p-2 px-6 py-3 text-left text-base font-medium tracking-wider border-b border-gray-200">Dirección</th>
+                    <th class="p-2 px-6 py-3 text-left text-base font-medium tracking-wider border-b border-gray-200">Teléfono</th>
+                    <th class="p-2 px-6 py-3 text-left text-base font-medium tracking-wider border-b border-gray-200">Email</th>
+                    <th class="p-2 px-6 py-3 text-left text-base font-medium tracking-wider border-b border-gray-200">Registrado</th>
+                    <th class="p-2 px-6 py-3 text-left text-base font-medium tracking-wider border-b border-gray-200">Acciones</th>
                 </tr>
             </thead>
             <tbody class="divide-y divide-gray-200">
@@ -146,98 +149,63 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form action="{{ route('clientes.store') }}" method="POST">
+                    <form action="{{ route('clientes.store') }}" method="POST" class="row g-3 needs-validation" novalidate>
                         @csrf
-                        <div class="row">
-                            <div class="col-lg-6">
-                                <div class="form-group">
-                                    <label for="primer_nombre">Primer Nombre <span class="text-danger">*</span></label>
-                                    <input type="text" class="form-control" id="primer_nombre" name="primer_nombre" value="{{ old('primer_nombre') }}" pattern="[A-Za-zÁÉÍÓÚáéíóúÑñ\s]+" required>
-                                    <div class="invalid-feedback">Solo se permiten letras y espacios.</div>
-                                    @if ($errors->has('primer_nombre'))
-                                        <div class="text-danger">{{ $errors->first('primer_nombre') }}</div>
-                                    @endif
-                                </div>
-                            </div>
-                    
-                            <div class="col-lg-6">
-                                <div class="form-group">
-                                    <label for="segundo_nombre">Segundo Nombre</label>
-                                    <input type="text" class="form-control" id="segundo_nombre" name="segundo_nombre" value="{{ old('segundo_nombre') }}" pattern="[A-Za-zÁÉÍÓÚáéíóúÑñ\s]+">
-                                    <div class="invalid-feedback">Solo se permiten letras y espacios.</div>
-                                    @if ($errors->has('segundo_nombre'))
-                                        <div class="text-danger">{{ $errors->first('segundo_nombre') }}</div>
-                                    @endif
-                                </div>
-                            </div>
-                    
-                            <div class="col-lg-6">
-                                <div class="form-group">
-                                    <label for="primer_apellido">Primer Apellido <span class="text-danger">*</span></label>
-                                    <input type="text" class="form-control" id="primer_apellido" name="primer_apellido" value="{{ old('primer_apellido') }}" pattern="[A-Za-zÁÉÍÓÚáéíóúÑñ\s]+" required>
-                                    <div class="invalid-feedback">Solo se permiten letras y espacios.</div>
-                                    @if ($errors->has('primer_apellido'))
-                                        <div class="text-danger">{{ $errors->first('primer_apellido') }}</div>
-                                    @endif
-                                </div>
-                            </div>
-                    
-                            <div class="col-lg-6">
-                                <div class="form-group">
-                                    <label for="segundo_apellido">Segundo Apellido</label>
-                                    <input type="text" class="form-control" id="segundo_apellido" name="segundo_apellido" value="{{ old('segundo_apellido') }}" pattern="[A-Za-zÁÉÍÓÚáéíóúÑñ\s]+">
-                                    <div class="invalid-feedback">Solo se permiten letras y espacios.</div>
-                                    @if ($errors->has('segundo_apellido'))
-                                        <div class="text-danger">{{ $errors->first('segundo_apellido') }}</div>
-                                    @endif
-                                </div>
-                            </div>
-                    
-                            <div class="col-lg-6">
-                                <div class="form-group">
-                                    <label for="direccion">Dirección <span class="text-danger">*</span></label>
-                                    <input type="text" class="form-control" id="direccion" name="direccion" value="{{ old('direccion') }}" required>
-                                    @if ($errors->has('direccion'))
-                                        <div class="text-danger">{{ $errors->first('direccion') }}</div>
-                                    @endif
-                                </div>
-                            </div>
-                    
-                            <div class="col-lg-4">
-                                <div class="form-group">
-                                    <label for="telefono">Teléfono <span class="text-danger">*</span></label>
-                                    <input type="text" class="form-control" id="telefono" name="telefono" value="{{ old('telefono') }}" required>
-                                    @if ($errors->has('telefono'))
-                                        <div class="text-danger">{{ $errors->first('telefono') }}</div>
-                                    @endif
-                                </div>
-                            </div>
-                    
-                            <div class="col-lg-4">
-                                <div class="form-group">
-                                    <label for="email">Email <span class="text-danger">*</span></label>
-                                    <input type="email" class="form-control" id="email" name="email" value="{{ old('email') }}">
-                                    @if ($errors->has('email'))
-                                        <div class="text-danger">{{ $errors->first('email') }}</div>
-                                    @endif
-                                </div>
-                            </div>
-                    
-                            <div class="col-lg-4">
-                                <div class="form-group">
-                                    <label for="fecha_registro">Fecha de Registro <span class="text-danger">*</span></label>
-                                    <input type="date" class="form-control" id="fecha_registro" name="fecha_registro" value="{{ old('fecha_registro') }}" required>
-                                    @if ($errors->has('fecha_registro'))
-                                        <div class="text-danger">{{ $errors->first('fecha_registro') }}</div>
-                                    @endif
-                                </div>
-                            </div>
+                        <div class="col-md-6">
+                            <label for="primer_nombre" class="form-label">Primer Nombre <span class="text-danger">*</span></label>
+                            <input type="text" class="form-control" id="primer_nombre" name="primer_nombre" value="{{ old('primer_nombre') }}" pattern="[A-Za-zÁÉÍÓÚáéíóúÑñ\s]+" required>
+                            <div class="invalid-feedback">Solo se permiten letras y espacios, mínimo 3 caracteres.</div>
                         </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                    
+                        <div class="col-md-6">
+                            <label for="segundo_nombre" class="form-label">Segundo Nombre</label>
+                            <input type="text" class="form-control" id="segundo_nombre" name="segundo_nombre" value="{{ old('segundo_nombre') }}" pattern="[A-Za-zÁÉÍÓÚáéíóúÑñ\s]+">
+                            <div class="invalid-feedback">Solo se permiten letras y espacios, mínimo 3 caracteres.</div>
+                        </div>
+                    
+                        <div class="col-md-6">
+                            <label for="primer_apellido" class="form-label">Primer Apellido <span class="text-danger">*</span></label>
+                            <input type="text" class="form-control" id="primer_apellido" name="primer_apellido" value="{{ old('primer_apellido') }}" pattern="[A-Za-zÁÉÍÓÚáéíóúÑñ\s]+" required>
+                            <div class="invalid-feedback">Solo se permiten letras y espacios, mínimo 3 caracteres.</div>
+                        </div>
+                    
+                        <div class="col-md-6">
+                            <label for="segundo_apellido" class="form-label">Segundo Apellido</label>
+                            <input type="text" class="form-control" id="segundo_apellido" name="segundo_apellido" value="{{ old('segundo_apellido') }}" pattern="[A-Za-zÁÉÍÓÚáéíóúÑñ\s]+">
+                            <div class="invalid-feedback">Solo se permiten letras y espacios, mínimo 3 caracteres.</div>
+                        </div>
+                    
+                        <div class="col-md-6">
+                            <label for="direccion" class="form-label">Dirección <span class="text-danger">*</span></label>
+                            <input type="text" class="form-control" id="direccion" name="direccion" value="{{ old('direccion') }}" required minlength="3">
+                            <div class="invalid-feedback">La dirección debe tener al menos 3 caracteres.</div>
+                        </div>
+                    
+                        <div class="col-md-4">
+                            <label for="telefono" class="form-label">Teléfono <span class="text-danger">*</span></label>
+                            <input type="number" class="form-control" id="telefono" name="telefono" value="{{ old('telefono') }}" required>
+                            <div class="invalid-feedback">El teléfono debe tener entre 8 y 12 dígitos.</div>
+                        </div>
+                    
+                        <div class="col-md-4">
+                            <label for="email" class="form-label">Email <span class="text-danger">*</span></label>
+                            <input type="email" class="form-control" id="email" name="email" value="{{ old('email') }}" required>
+                            <div class="invalid-feedback">Por favor ingrese un correo válido.</div>
+                        </div>
+                    
+                        <div class="col-md-4">
+                            <label for="fecha_registro" class="form-label">Fecha de Registro <span class="text-danger">*</span></label>
+                            <input type="date" class="form-control" id="fecha_registro" name="fecha_registro" value="{{ old('fecha_registro') }}" required>
+                            <div class="invalid-feedback">Seleccione una fecha válida.</div>
+                        </div>
+                    
+                        <div class="col-12">
                             <button type="submit" class="btn btn-primary">Guardar Cliente</button>
                         </div>
                     </form>
+                    
+                   
+                    
                     
                 </div>
             </div>
@@ -246,14 +214,10 @@
 </div>
 @stop
 
-@section('css')
 
-
-    {{-- <link rel="stylesheet" href="/css/admin_custom.css"> --}}
-@stop
 
 @section('js')
-
+@livewireScripts
      <!-- Otros elementos del encabezado... -->
      <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
      
@@ -301,56 +265,77 @@ $(document).ready(function() {
         processing: true,
         serverSide: true,
         ajax: "{{ url('api/clientes') }}",
-  columns: [
-    { data: 'id' },
-    { data: 'primer_nombre',
-        render: function (data, type, row) {
-            return `<span class="text-primary font-weight-bold">${data}</span>`;
-        },
-    },
-    { data: 'primer_apellido',
-        render: function (data, type, row) {
-            return `<span class="text-primary font-weight-bold">${data}</span>`;
-        },
-    },
-    { data: 'direccion' },
-    { data: 'telefono' },
-    { data: 'email' },
-    { data: 'fecha_registro' },
+        columns: [
     {
-    data: 'id', // Utilizamos el id del cliente
-    render: function(data, type, row) {
-        return `
-            <div class="btn-wrapper" style="width: 270px">
-               <button type="button" class="btn btn-secondary btn-sm popover-btn" data-bs-toggle="popover" data-bs-html="true" data-bs-content="
-                    <a href='${baseUrl}/api/facturas/${data}' class='btn btn-info btn-sm d-block mb-2'>
-                        <i class='fas fa-file-invoice-dollar'></i> Ver Facturas Pendientes
-                    </a>
-                   <a href='${baseUrl}/api/his/clientes/${data}' class='btn btn-purple btn-sm d-block'>
-                      <i class='fas fa-eye'></i> Ver Historial de Pagos
-                    </a>
-
-                ">
-                    <i class="fas fa-ellipsis-h"></i>
-                </button>
-                
-                <a href="${baseUrl}/clientes/${data}" class="btn btn-purple btn-sm">
-                    <i class="fas fa-eye"></i> 
-                </a>
-                <a href="${baseUrl}/clientes/${data}/edit" class="btn btn-green btn-sm">
-                    <i class="fas fa-edit"></i> 
-                </a>
-                <button type="button" class="btn btn-orange btn-sm delete-btn" data-id="${data}">
-                    <i class="fas fa-trash"></i> 
-                </button>
-            </div>
-        `;
+        data: 'id',
+        render: function (data, type, row) {
+            return `<span class="text-primary font-weight-bold p-2 d-block">${data}</span>`;
+        },
+        className: 'p-2', // Agregar padding a la columna
     },
-    orderable: false,
-    searchable: false
-}
+    {
+        data: 'primer_nombre',
+        render: function (data, type, row) {
+            return `<span class="text-primary font-weight-bold p-2 d-block">${data}</span>`;
+        },
+        className: 'p-2',
+    },
+    {
+        data: 'primer_apellido',
+        render: function (data, type, row) {
+            return `<span class="text-primary font-weight-bold p-2 d-block">${data}</span>`;
+        },
+        className: 'p-2',
+    },
+    {
+        data: 'direccion',
+        className: 'p-2', // Agregar padding a la columna
+    },
+    {
+        data: 'telefono',
+        className: 'p-2',
+    },
+    {
+        data: 'email',
+        className: 'p-2',
+    },
+    {
+        data: 'fecha_registro',
+        className: 'p-2',
+    },
+    {
+        data: 'id',
+        render: function(data, type, row) {
+            return `
+                <div class="btn-wrapper" style="width: 270px">
+                    <button type="button" class="btn btn-secondary btn-sm popover-btn" data-bs-toggle="popover" data-bs-html="true" data-bs-content="
+                        <a href='${baseUrl}/api/facturas/${data}' class='btn btn-info btn-sm d-block mb-2'>
+                            <i class='fas fa-file-invoice-dollar'></i> Ver Facturas Pendientes
+                        </a>
+                        <a href='${baseUrl}/api/his/clientes/${data}' class='btn btn-purple btn-sm d-block'>
+                            <i class='fas fa-eye'></i> Ver Historial de Pagos
+                        </a>
+                    ">
+                        <i class="fas fa-ellipsis-h"></i>
+                    </button>
+                    <a href="${baseUrl}/clientes/${data}" class="btn btn-purple btn-sm">
+                        <i class="fas fa-eye"></i> 
+                    </a>
+                    <a href="${baseUrl}/clientes/${data}/edit" class="btn btn-green btn-sm">
+                        <i class="fas fa-edit"></i> 
+                    </a>
+                    <button type="button" class="btn btn-orange btn-sm delete-btn" data-id="${data}">
+                        <i class="fas fa-trash"></i> 
+                    </button>
+                </div>
+            `;
+        },
+        orderable: false,
+        searchable: false,
+        className: 'p-2', // Agregar padding a la columna de acciones
+    },
+],
 
-  ],
 
         language: {
             search: "Buscar ",
@@ -453,47 +438,74 @@ $(document).ready(function() {
         ],
     });
 
-    // Manejar la eliminación de registros con SweetAlert
-    $('#clientesTable').on('click', '.delete-btn', function() {
-        var id = $(this).data('id');
-        var url = "{{ url('clientes') }}/" + id;
-        
-        Swal.fire({
-            title: '¿Estás seguro?',
-            text: "¡No podrás revertir esto!",
-            icon: 'warning',
-            showCancelButton: true,
-            confirmButtonColor: '#3085d6',
-            cancelButtonColor: '#d33',
-            confirmButtonText: 'Sí, eliminar',
-            cancelButtonText: 'Cancelar'
-        }).then((result) => {
-            if (result.isConfirmed) {
-                $.ajax({
-                    url: url,
-                    type: 'DELETE',
-                    data: {
-                        _token: '{{ csrf_token() }}'
-                    },
-                    success: function(response) {
-                        $('#clientesTable').DataTable().ajax.reload();
-                        Swal.fire(
-                            'Eliminado!',
-                            'El cliente ha sido eliminado.',
-                            'success'
-                        );
-                    },
-                    error: function(xhr, status, error) {
-                        Swal.fire(
-                            'Error!',
-                            'Ocurrió un error: ' + error,
-                            'error'
-                        );
+   // Manejar la eliminación de registros con SweetAlert
+$('#clientesTable').on('click', '.delete-btn', function() {
+    var id = $(this).data('id');
+    var url = "{{ url('clientes') }}/" + id;
+
+    // Obtén el nombre y apellido del cliente desde la fila
+    var clienteNombre = $(this).closest('tr').find('td:nth-child(2)').text(); // Cambia el índice si es necesario
+    var clienteApellido = $(this).closest('tr').find('td:nth-child(3)').text(); // Cambia el índice si es necesario
+
+    Swal.fire({
+        title: '¿Estás seguro?',
+        text: "¡No podrás revertir esto!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Sí, eliminar',
+        cancelButtonText: 'Cancelar'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            // Pide confirmar el nombre completo del cliente antes de eliminar
+            Swal.fire({
+                title: 'Confirmar eliminación',
+                html: `Por favor, copia el nombre completo del cliente: <strong>${clienteNombre} ${clienteApellido}</strong> y pégalo a continuación para confirmar la eliminación.`,
+                input: 'text',
+                inputAttributes: {
+                    autocapitalize: 'off'
+                },
+                showCancelButton: true,
+                confirmButtonText: 'Eliminar',
+                cancelButtonText: 'Cancelar',
+                preConfirm: (inputNombre) => {
+                    // Comprobar que el nombre completo introducido coincida
+                    if (inputNombre !== `${clienteNombre} ${clienteApellido}`) {
+                        Swal.showValidationMessage(`El nombre introducido no coincide con ${clienteNombre} ${clienteApellido}`);
                     }
-                });
-            }
-        });
+                }
+            }).then((inputResult) => {
+                if (inputResult.isConfirmed) {
+                    // Si el nombre es correcto, proceder a eliminar
+                    $.ajax({
+                        url: url,
+                        type: 'DELETE',
+                        data: {
+                            _token: '{{ csrf_token() }}'
+                        },
+                        success: function(response) {
+                            $('#clientesTable').DataTable().ajax.reload();
+                            Swal.fire(
+                                'Eliminado!',
+                                'El cliente ha sido eliminado.',
+                                'success'
+                            );
+                        },
+                        error: function(xhr, status, error) {
+                            Swal.fire(
+                                'Error!',
+                                'Ocurrió un error: ' + error,
+                                'error'
+                            );
+                        }
+                    });
+                }
+            });
+        }
     });
+});
+
 });$(document).ready(function() {
     // Inicializar popovers manualmente
     $('[data-bs-toggle="popover"]').popover({
@@ -535,35 +547,99 @@ $(document).ready(function() {
 
 <script>
     (function () {
-    'use strict';
-    window.addEventListener('load', function () {
-        var forms = document.getElementsByClassName('needs-validation');
-        Array.prototype.filter.call(forms, function (form) {
-            form.addEventListener('submit', function (event) {
-                if (form.checkValidity() === false) {
-                    event.preventDefault();
-                    event.stopPropagation();
+        'use strict';
+        window.addEventListener('load', function () {
+            var forms = document.getElementsByClassName('needs-validation');
+            Array.prototype.filter.call(forms, function (form) {
+                form.addEventListener('submit', function (event) {
+                    if (form.checkValidity() === false) {
+                        event.preventDefault();
+                        event.stopPropagation();
+                    }
+                    form.classList.add('was-validated');
+                }, false);
+            });
+        }, false);
+    
+        // Agregar validación mínima de caracteres para los campos de texto
+        const textFields = document.querySelectorAll('input[type="text"]');
+        textFields.forEach(field => {
+            field.addEventListener('input', function () {
+                if (field.value.length < 3) {
+                    field.setCustomValidity('El campo debe tener al menos 3 caracteres.');
+                } else {
+                    field.setCustomValidity('');
                 }
-                form.classList.add('was-validated');
-            }, false);
+            });
         });
-    }, false);
-})();
-
-</script>
-
-<script>
-    // Selecciona los campos de texto que solo deben permitir letras
-    const nameFields = ['primer_nombre', 'segundo_nombre', 'primer_apellido', 'segundo_apellido'];
-
-    nameFields.forEach(fieldId => {
-        document.getElementById(fieldId).addEventListener('input', function(event) {
-            // Reemplaza cualquier número con una cadena vacía
-            event.target.value = event.target.value.replace(/[0-9]/g, '');
+    
+        // Validación para campos de texto solo letras
+        const nameFields = ['primer_nombre', 'segundo_nombre', 'primer_apellido', 'segundo_apellido'];
+        nameFields.forEach(fieldId => {
+            const field = document.getElementById(fieldId);
+            if (field) {
+                field.addEventListener('input', function(event) {
+                    event.target.value = event.target.value.replace(/[0-9]/g, '');
+                });
+            }
         });
-    });
-</script>
-
+    
+        // Validación de teléfono con longitud entre 8 y 12
+        const phoneField = document.getElementById('telefono');
+        if (phoneField) {
+            phoneField.addEventListener('input', function() {
+                if (phoneField.value.length < 8 || phoneField.value.length > 12) {
+                    phoneField.setCustomValidity('El teléfono debe tener entre 8 y 12 dígitos.');
+                } else {
+                    phoneField.setCustomValidity('');
+                }
+            });
+        }
+    })();
+    </script>
+    
+    <script>
+        (function () {
+            'use strict';
+        
+            // Agregar validación mínima de caracteres a los campos de texto
+            const textFields = document.querySelectorAll('input[type="text"]');
+            textFields.forEach(field => {
+                field.addEventListener('input', function () {
+                    if (field.value.length < 3) {
+                        field.setCustomValidity('El campo debe tener al menos 3 caracteres.');
+                    } else {
+                        field.setCustomValidity('');
+                    }
+                });
+            });
+        
+            // Validación de longitud para el campo de teléfono
+            const phoneField = document.getElementById('telefono');
+            if (phoneField) {
+                phoneField.addEventListener('input', function() {
+                    const length = phoneField.value.length;
+                    if (length < 8 || length > 12) {
+                        phoneField.setCustomValidity('El teléfono debe tener entre 8 y 12 dígitos.');
+                    } else {
+                        phoneField.setCustomValidity('');
+                    }
+                });
+            }
+        
+            // Aplicar estilos de validación de Bootstrap a todos los formularios con clase needs-validation
+            const forms = document.querySelectorAll('.needs-validation');
+            Array.prototype.slice.call(forms).forEach(function (form) {
+                form.addEventListener('submit', function (event) {
+                    if (!form.checkValidity()) {
+                        event.preventDefault();
+                        event.stopPropagation();
+                    }
+                    form.classList.add('was-validated');
+                }, false);
+            });
+        })();
+        </script>
 @stop
     
 </body>

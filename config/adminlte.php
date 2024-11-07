@@ -147,6 +147,8 @@ return [
     'password_reset_url' => 'password/reset',
     'password_email_url' => 'password/email',
     'profile_url' => true,
+    'profile_url' => 'perfil',
+
 
     /*
     |--------------------------------------------------------------------------
@@ -183,10 +185,7 @@ return [
             'text' => 'search',
             'topnav_right' => true,
         ], */
-        [
-            'type' => 'fullscreen-widget',
-            'topnav_right' => true,
-        ],
+       
 
         // Sidebar items:
         // Sidebar items:

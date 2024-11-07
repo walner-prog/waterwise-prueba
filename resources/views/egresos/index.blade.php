@@ -124,7 +124,7 @@
             <thead class="bg-gradient-to-r from-blue-500 to-blue-600 text-white">
                 <tr>
                     <th style="width: 100px"class="px-6 py-3 p-1 text-left text-base font-medium tracking-wider border-b border-gray-200">Accion</th>
-                    <th class="px-6 py-3 text-left p-1 text-base font-medium tracking-wider border-b border-gray-200">ID</th>
+                    <th class="px-6 py-3 text-left p-1 text-base font-medium tracking-wider border-b border-gray-200">#</th>
                     <th class="px-6 py-3 text-left p-1 text-base font-medium tracking-wider border-b border-gray-200">Concepto</th>
                     <th class="px-6 py-3 text-left p-1 text-base font-medium tracking-wider border-b border-gray-200">Paguese a</th>
                     <th class="px-6 py-3 text-left p-1 text-base font-medium tracking-wider border-b border-gray-200">Monto</th>
@@ -153,88 +153,101 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form action="{{ route('egresos.store') }}" method="POST">
+                    <form action="{{ route('egresos.store') }}" method="POST" class="row g-3 needs-validation" novalidate>
                         @csrf
-                        <div class="row">
-                            
-                            <div class="col-lg-6">
-                                <div class="form-group">
-                                    <label for="concepto">Paguese a: <span class="text-danger">*</span></label>
-                                    <div class="input-group">
-                                        <div class="input-group-prepend">
-                                            <span class="input-group-text"><i class="fas fa-file-alt"></i></span>
-                                        </div>
-                                        <input type="text" class="form-control" id="pagado_a" name="pagado_a" value="{{ old('pagado_a') }}" required>
+                        <div class="col-lg-6">
+                            <div class="form-group">
+                                <label for="pagado_a">Paguese a: <span class="text-danger">*</span></label>
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text"><i class="fas fa-file-alt"></i></span>
                                     </div>
-                                    @if ($errors->has('pagado_a'))
-                                        <div class="text-danger">{{ $errors->first('pagado_a') }}</div>
-                                    @endif
+                                    <input type="text" class="form-control" id="pagado_a" name="pagado_a" value="{{ old('pagado_a') }}" required pattern="[A-Za-z\s]+" title="Solo se permiten letras y espacios.">
+                                    <div class="invalid-feedback">
+                                        Este campo solo permite solo letras y espacios.
+                                      </div>
                                 </div>
+                                @if ($errors->has('pagado_a'))
+                                    <div class="text-danger">{{ $errors->first('pagado_a') }}</div>
+                                @endif
                             </div>
-                            <div class="col-lg-6">
-                                <div class="form-group">
-                                    <label for="monto">Monto <span class="text-danger">*</span></label>
-                                    <div class="input-group">
-                                        <div class="input-group-prepend">
-                                            <span class="input-group-text"><i class="fas fa-dollar-sign"></i></span>
-                                        </div>
-                                        <input type="number" class="form-control" id="monto" name="monto" value="{{ old('monto') }}" required>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="form-group">
+                                <label for="monto">Monto <span class="text-danger">*</span></label>
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text"><i class="fas fa-dollar-sign"></i></span>
                                     </div>
-                                    @if ($errors->has('monto'))
-                                        <div class="text-danger">{{ $errors->first('monto') }}</div>
-                                    @endif
+                                    <input type="number" class="form-control" id="monto" name="monto" value="{{ old('monto') }}" required min="0" title="El monto debe ser mayor que 0.">
+                                    <div class="invalid-feedback">
+                                        El monto debe ser mayor que 0.
+                                      </div>
                                 </div>
+                                @if ($errors->has('monto'))
+                                    <div class="text-danger">{{ $errors->first('monto') }}</div>
+                                @endif
                             </div>
-                            <div class="col-lg-4">
-                                <div class="form-group">
-                                    <label for="fecha">Fecha <span class="text-danger">*</span></label>
-                                    <div class="input-group">
-                                        <div class="input-group-prepend">
-                                            <span class="input-group-text"><i class="fas fa-calendar-alt"></i></span>
-                                        </div>
-                                        <input type="date" class="form-control" id="fecha" name="fecha" value="{{ old('fecha') }}" required>
+                        </div>
+                        <div class="col-lg-4">
+                            <div class="form-group">
+                                <label for="fecha">Fecha <span class="text-danger">*</span></label>
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text"><i class="fas fa-calendar-alt"></i></span>
                                     </div>
-                                    @if ($errors->has('fecha'))
-                                        <div class="text-danger">{{ $errors->first('fecha') }}</div>
-                                    @endif
+                                    <input type="date" class="form-control" id="fecha" name="fecha" value="{{ old('fecha') }}" required title="La fecha es obligatoria.">
+                                    <div class="invalid-feedback">
+                                        La fecha es obligatoria.
+                                      </div>
                                 </div>
+                                @if ($errors->has('fecha'))
+                                    <div class="text-danger">{{ $errors->first('fecha') }}</div>
+                                @endif
                             </div>
-
-                            <div class="col-lg-8">
-                                <div class="form-group">
-                                    <label for="empleado_id">Empleado <span class="text-danger">*</span></label>
-                                    <div class="input-group">
-                                        <div class="input-group-prepend">
-                                            <span class="input-group-text"><i class="fas fa-user"></i></span>
-                                        </div>
-                                        <select class="form-control" id="empleado_id" name="empleado_id" required>
-                                            <option value="">Seleccione un empleado</option>
-                                            @foreach ($empleados as $empleado)
-                                                <option value="{{ $empleado->id }}" {{ old('empleado_id') == $empleado->id ? 'selected' : '' }}>
-                                                    {{ $empleado->nombre }}   {{ $empleado->apellido }}
-                                                </option>
-                                            @endforeach
-                                        </select>
+                        </div>
+                    
+                        <div class="col-lg-8">
+                            <div class="form-group">
+                                <label for="empleado_id">Empleado <span class="text-danger">*</span></label>
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text"><i class="fas fa-user"></i></span>
                                     </div>
+                                    <select class="form-control" id="empleado_id" name="empleado_id" required>
+                                        <option value="">Seleccione un empleado</option>
+                                        @foreach ($empleados as $empleado)
+                                            <option value="{{ $empleado->id }}" {{ old('empleado_id') == $empleado->id ? 'selected' : '' }}>
+                                                {{ $empleado->nombre }} {{ $empleado->apellido }}
+                                            </option>
+                                        @endforeach
+                                    </select>
                                     @if ($errors->has('empleado_id'))
                                         <div class="text-danger">{{ $errors->first('empleado_id') }}</div>
                                     @endif
                                 </div>
+                                <div class="invalid-feedback">
+                                    El empleado es obligatorio es obligatoria.
+                                  </div>
                             </div>
-                            
-                            <div class="col-lg-8">
-                                <div class="form-group">
-                                    <label for="descripcion">Observaciones</label>
-                                    <div class="input-group">
-                                        <div class="input-group-prepend">
-                                            <span class="input-group-text"><i class="fas fa-comments"></i></span>
-                                        </div>
-                                        <input type="text" class="form-control" id="descripcion" name="descripcion" value="{{ old('descripcion') }}">
+                        </div>
+                        
+                        <div class="col-lg-8">
+                            <div class="form-group">
+                                <label for="descripcion">Observaciones</label>
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text"><i class="fas fa-comments"></i></span>
                                     </div>
-                                    @if ($errors->has('descripcion'))
-                                        <div class="text-danger">{{ $errors->first('descripcion') }}</div>
-                                    @endif
+                                    <input type="text" class="form-control" id="descripcion" name="descripcion" value="{{ old('descripcion') }}" title="Las Observaciones son obligatorias">
+                                    <div class="invalid-feedback">
+                                        Las Observaciones son obligatorias
+                                      </div>
                                 </div>
+
+                                @if ($errors->has('descripcion'))
+                                    <div class="text-danger">{{ $errors->first('descripcion') }}</div>
+                                @endif
                             </div>
                         </div>
                         <div class="modal-footer">
@@ -242,6 +255,9 @@
                             <button type="submit" class="btn btn-primary">Guardar Egreso</button>
                         </div>
                     </form>
+                    
+                    
+                    
                 </div>
             </div>
         </div>
@@ -315,7 +331,7 @@
     { 
         data: 'monto',
         render: function (data, type, row) {
-            return `<span class="text-success font-weight-bold">${data}</span>`;
+            return `<span class="text-success font-weight-bold">C$ ${data}</span>`;
         },
     },
     { 
@@ -408,50 +424,100 @@
             $('.dt-button').not('#toggleButtons').toggle();
         });
 
-    // Manejar la eliminación de registros con SweetAlert
-    $('#egresosTable').on('click', '.delete-btn', function() {
-        var id = $(this).data('id');
-        var url = "{{ url('egresos') }}/" + id;
+  // Manejar la eliminación de registros con SweetAlert
+$('#egresosTable').on('click', '.delete-btn', function() {
+    var id = $(this).data('id');
+    var url = "{{ url('egresos') }}/" + id;
 
-        Swal.fire({
-            title: '¿Estás seguro?',
-            text: "¡No podrás revertir esto!",
-            icon: 'warning',
-            showCancelButton: true,
-            confirmButtonColor: '#3085d6',
-            cancelButtonColor: '#d33',
-            confirmButtonText: 'Sí, eliminar',
-            cancelButtonText: 'Cancelar'
-        }).then((result) => {
-            if (result.isConfirmed) {
-                $.ajax({
-                    url: url,
-                    type: 'DELETE',
-                    data: {
-                        _token: '{{ csrf_token() }}'
-                    },
-                    success: function(response) {
-                        $('#egresosTable').DataTable().ajax.reload();
-                        Swal.fire(
-                            'Eliminado!',
-                            'El egreso ha sido eliminado.',
-                            'success'
-                        );
-                    },
-                    error: function(xhr, status, error) {
-                        Swal.fire(
-                            'Error!',
-                            'Ocurrió un error: ' + error,
-                            'error'
-                        );
+    // Obtén el monto y los datos del empleado desde la fila
+    var monto = $(this).closest('tr').find('td:nth-child(5)').text(); // Cambia el índice según la columna
+    var empleadoNombre = $(this).closest('tr').find('td:nth-child(7)').text(); // Cambia el índice según la columna
+    var paguese_a = $(this).closest('tr').find('td:nth-child(4)').text(); // Cambia el índice según la columna
+
+    Swal.fire({
+        title: '¿Estás seguro?',
+        text: "¡No podrás revertir esto!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Sí, eliminar',
+        cancelButtonText: 'Cancelar'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            // Pide el monto a eliminar
+            Swal.fire({
+                title: 'Confirmar eliminación',
+                html: `Por favor, copia el monto a eliminar con el signo de cordoba: <strong> ${monto} </strong> y pégalo a continuación para confirmar la eliminación.<br>
+                      <strong>Empleado:</strong>  ${empleadoNombre}  <strong>Paguese a:</strong>   (${paguese_a})`,
+                input: 'text',
+                inputAttributes: {
+                    autocapitalize: 'off'
+                },
+                showCancelButton: true,
+                confirmButtonText: 'Eliminar',
+                cancelButtonText: 'Cancelar',
+                preConfirm: (inputMonto) => {
+                    // Comprobar que el monto introducido coincida
+                    if (inputMonto !== monto) {
+                        Swal.showValidationMessage(`El monto no coincide con ${monto}`);
                     }
-                });
-            }
-        });
+                }
+            }).then((inputResult) => {
+                if (inputResult.isConfirmed) {
+                    // Si el monto es correcto, proceder a eliminar
+                    $.ajax({
+                        url: url,
+                        type: 'DELETE',
+                        data: {
+                            _token: '{{ csrf_token() }}'
+                        },
+                        success: function(response) {
+                            $('#egresosTable').DataTable().ajax.reload();
+                            Swal.fire(
+                                'Eliminado!',
+                                'El egreso ha sido eliminado.',
+                                'success'
+                            );
+                        },
+                        error: function(xhr, status, error) {
+                            Swal.fire(
+                                'Error!',
+                                'Ocurrió un error: ' + error,
+                                'error'
+                            );
+                        }
+                    });
+                }
+            });
+        }
     });
 });
 
+});
 
+
+</script>
+<script>
+    (function () {
+        'use strict'
+
+        // Fetch all the forms we want to apply custom Bootstrap validation styles to
+        var forms = document.querySelectorAll('.needs-validation')
+
+        // Loop over them and prevent submission
+        Array.prototype.slice.call(forms)
+            .forEach(function (form) {
+                form.addEventListener('submit', function (event) {
+                    if (!form.checkValidity() || document.getElementById('monto').value <= 0) {
+                        event.preventDefault()
+                        event.stopPropagation()
+                    }
+
+                    form.classList.add('was-validated')
+                }, false)
+            })
+    })()
 </script>
 
 @stop

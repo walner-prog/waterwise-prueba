@@ -49,7 +49,7 @@
 
 
 @section('content')
-<div class="container mt-4 toggle-container">
+<div class="container  toggle-container">
     @section('preloader')
         <i class="fas fa-4x fa-spin fa-spinner text-secondary"></i>
     @stop
@@ -112,20 +112,20 @@
     
        @can('ver-lecturas_mensuales')
        <div class="table-responsive">
-        <table id="lecturasTable" class="min-w-full w-full w-100 border border-gray-300 shadow-md rounded-lg p-2">
+        <table id="lecturasTable" class="min-w-full w-full w-100 border border-gray-300 shadow-md rounded-lg p-2 table-striped">
             <thead class="bg-gradient-to-r from-blue-500 to-blue-600 text-white w-full">
                 <tr>
-                    <th class="px-6 py-3 text-left text-base font-medium tracking-wider border-b border-gray-200">ID</th>
-                    <th class="px-6 py-3 text-left text-base font-medium tracking-wider border-b border-gray-200">Número de Medidor</th>
-                    <th class="px-6 py-3 text-left text-base font-medium tracking-wider border-b border-gray-200">Lectura Anterior</th>
-                    <th class="px-6 py-3 text-left text-base font-medium tracking-wider border-b border-gray-200">Lectura Actual</th>
-                    <th class="px-6 py-3 text-left text-base font-medium tracking-wider border-b border-gray-200">Nombre Cliente</th>
-                    <th class="px-6 py-3 text-left text-base font-medium tracking-wider border-b border-gray-200">Apellido Cliente</th>
-                    <th class="px-6 py-3 text-left text-base font-medium tracking-wider border-b border-gray-200">Fecha</th>
-                    <th class="px-6 py-3 text-left text-base font-medium tracking-wider border-b border-gray-200">Consumo</th>
+                    <th class=" p-1 px-6 py-3 text-left text-base font-medium tracking-wider border-b border-gray-200">#</th>
+                    <th class="p-1 px-6 py-3 text-left text-base font-medium tracking-wider border-b border-gray-200">Número de Medidor</th>
+                    <th class="p-1 px-6 py-3 text-left text-base font-medium tracking-wider border-b border-gray-200">Nombre Cliente</th>
+                    <th class="p-1 px-6 py-3 text-left text-base font-medium tracking-wider border-b border-gray-200">Apellido Cliente</th>
+                    <th class="p-1 px-6 py-3 text-left text-base font-medium tracking-wider border-b border-gray-200">Lectura Anterior</th>
+                    <th class="p-1 px-6 py-3 text-left text-base font-medium tracking-wider border-b border-gray-200">Lectura Actual</th>
+                    <th class="p-1 px-6 py-3 text-left text-base font-medium tracking-wider border-b border-gray-200">Fecha</th>
+                    <th class="p-1 px-6 py-3 text-left text-base font-medium tracking-wider border-b border-gray-200">Consumo</th>
                          {{--                  <th class="px-6 py-3 text-left text-base font-medium tracking-wider border-b border-gray-200">Fecha inicio /fin </th> --}}
-                    <th class="px-6 py-3 text-left text-base font-medium tracking-wider border-b border-gray-200">Mes leido</th>
-                    <th class="px-6 py-3 text-left text-base font-medium tracking-wider border-b border-gray-200">Acciones</th>
+                    <th class="p-1 px-6 py-3 text-left text-base font-medium tracking-wider border-b border-gray-200">Mes leido</th>
+                    <th class="p-1 px-6 py-3 text-left text-base font-medium tracking-wider border-b border-gray-200">Acciones</th>
 
                     
                  
@@ -141,6 +141,34 @@
       @endcan
 
       <div class="col-lg-8 mb-3 mt-4">
+
+        <!-- Modal -->
+<div class="modal fade" id="detalleLecturaModal" tabindex="-1" aria-labelledby="detalleLecturaLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header bg-primary text-white">
+                <h5 class="modal-title" id="detalleLecturaLabel">Información de la Lectura</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Cerrar">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <!-- Aquí se cargarán los detalles de la lectura -->
+                <p class="text-dark"><strong>Medidor ID:</strong> <span id="medidor_id"></span></p>
+                <p class="text-dark"><strong>Cliente:</strong> <span id="cliente_nombre"></span></p>
+                <p class="text-dark"><strong>Lectura Anterior:</strong> <span id="lectura_anterior"></span></p>
+                <p class="text-dark"><strong>Lectura Actual:</strong> <span id="lectura_actual"></span></p>
+                <p class="text-dark"><strong>Consumo:</strong> <span id="consumo"></span></p>
+                <p class="text-dark"><strong>Fecha de Lectura:</strong> <span id="fecha_lectura"></span></p>
+                <p class="text-dark"><strong>Fecha de Inicio:</strong> <span id="fecha_inicio"></span></p>
+                <p class="text-dark"><strong>Fecha de Fin:</strong> <span id="fecha_fin"></span></p>
+                <p class="text-dark"><strong>Mes Leído:</strong> <span id="mes_leido"></span></p>
+            </div>
+            
+        </div>
+    </div>
+</div>
+
       
       </div>
   
@@ -150,9 +178,9 @@
 
 
 @section('css')
+<style>
 
-
-    {{-- <link rel="stylesheet" href="/css/admin_custom.css"> --}}
+</style>
 @stop
 
 @section('js')
@@ -199,27 +227,71 @@
         serverSide: true,
         ajax: "{{ url('api/lecturas_mensuales') }}",
         columns: [
-            { data: 'id' },
-            { data: 'medidor.numero_medidor', 
-                render: function (data, type, row) {
-                    return `<span class="text-primary font-weight-bold">${data}</span>`;
-                },
+        { data: 'id' },
+        { 
+            data: 'medidor.numero_medidor',
+            render: function (data, type, row) {
+                return `<span class="text-primary font-weight-bold p-2">${data}</span>`;
             },
-            { data: 'lectura_anterior' },
-            { data: 'lectura_actual' },
-            { data: 'cliente_nombre' },
-            { data: 'cliente_apellido' },
-            { data: 'fecha_lectura' },
-            { data: 'consumo' },
-           /* {
-                data: null, 
-                render: function (data, type, row) {
-                    return data.fecha_inicio + ' - ' + data.fecha_fin;
-                }
-            },*/
-            { data: 'mes_leido' },
-            { data: 'btn', orderable: false, searchable: false }
-        ],
+            createdCell: function(td) {
+                $(td).addClass('p-2'); // Agrega padding a la celda
+            }
+        },
+      
+        { 
+            data: 'cliente_nombre', 
+            createdCell: function(td) {
+                $(td).addClass('p-2'); // Agrega padding a la celda
+            } 
+        },
+        { 
+            data: 'cliente_apellido', 
+            createdCell: function(td) {
+                $(td).addClass('p-2'); // Agrega padding a la celda
+            } 
+        },
+        { 
+            data: 'lectura_anterior', 
+            createdCell: function(td) {
+                $(td).addClass('p-2'); // Agrega padding a la celda
+            } 
+        },
+        { 
+            data: 'lectura_actual', 
+            createdCell: function(td) {
+                $(td).addClass('p-2'); // Agrega padding a la celda
+            } 
+        },
+        { 
+            data: 'fecha_lectura', 
+            createdCell: function(td) {
+                $(td).addClass('p-2'); // Agrega padding a la celda
+            } 
+        },
+        { 
+            data: 'consumo', 
+            createdCell: function(td) {
+                $(td).addClass('p-2'); // Agrega padding a la celda
+            } 
+        },
+        { 
+            data: 'mes_leido', 
+            createdCell: function(td) {
+                $(td).addClass('p-2'); // Agrega padding a la celda
+            } 
+        },
+        { 
+            data: 'btn', 
+            orderable: false, 
+            searchable: false, 
+            createdCell: function(td) {
+                $(td).addClass('p-2'); // Agrega padding a la celda
+            } 
+
+            
+        },
+        
+    ],
         language: {
             search: "Buscar ",
             lengthMenu: "Mostrar _MENU_ registros por página",
@@ -321,48 +393,105 @@
     });
 
     // Manejar la eliminación de registros con SweetAlert
-    $('#lecturasTable').on('click', '.delete-btn', function() {
-        var id = $(this).data('id');
-        var url = "{{ url('lecturas_mensuales') }}/" + id;
-        
-        Swal.fire({
-            title: '¿Estás seguro?',
-            text: "¡No podrás revertir esto!",
-            icon: 'warning',
-            showCancelButton: true,
-            confirmButtonColor: '#3085d6',
-            cancelButtonColor: '#d33',
-            confirmButtonText: 'Sí, eliminar',
-            cancelButtonText: 'Cancelar'
-        }).then((result) => {
-            if (result.isConfirmed) {
-                $.ajax({
-                    url: url,
-                    type: 'DELETE',
-                    data: {
-                        _token: '{{ csrf_token() }}'
-                    },
-                    success: function(response) {
-                        $('#lecturasTable').DataTable().ajax.reload();
-                        Swal.fire(
-                            'Eliminado!',
-                            'La lectura ha sido eliminada.',
-                            'success'
-                        );
-                    },
-                    error: function(xhr, status, error) {
-                        Swal.fire(
-                            'Error!',
-                            'Ocurrió un error: ' + error,
-                            'error'
-                        );
+$('#lecturasTable').on('click', '.delete-btn', function() {
+    var id = $(this).data('id');
+    var url = "{{ url('lecturas_mensuales') }}/" + id;
+
+    // Obtén el número de medidor y los nombres del cliente desde la fila
+    var numeroMedidor = $(this).closest('tr').find('td:nth-child(2)').text(); // Cambia el índice según la columna
+    var clienteNombre = $(this).closest('tr').find('td:nth-child(3)').text(); // Cambia el índice según la columna
+    var clienteApellido = $(this).closest('tr').find('td:nth-child(4)').text(); // Cambia el índice según la columna
+
+    Swal.fire({
+        title: '¿Estás seguro?',
+        text: "¡No podrás revertir esto!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Sí, eliminar',
+        cancelButtonText: 'Cancelar'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            // Pide el número de medidor a eliminar
+            Swal.fire({
+                title: 'Confirmar eliminación',
+                html: `Por favor, copia el número del medidor: <strong>${numeroMedidor}</strong> y pégalo a continuación para confirmar la eliminación.<br>
+                       Cliente: ${clienteNombre} ${clienteApellido}`,
+                input: 'text',
+                inputAttributes: {
+                    autocapitalize: 'off'
+                },
+                showCancelButton: true,
+                confirmButtonText: 'Eliminar',
+                cancelButtonText: 'Cancelar',
+                preConfirm: (inputNumero) => {
+                    // Comprobar que el número introducido coincida
+                    if (inputNumero !== numeroMedidor) {
+                        Swal.showValidationMessage(`El número de medidor no coincide con ${numeroMedidor}`);
                     }
-                });
-            }
-        });
+                }
+            }).then((inputResult) => {
+                if (inputResult.isConfirmed) {
+                    // Si el número es correcto, proceder a eliminar
+                    $.ajax({
+                        url: url,
+                        type: 'DELETE',
+                        data: {
+                            _token: '{{ csrf_token() }}'
+                        },
+                        success: function(response) {
+                            $('#lecturasTable').DataTable().ajax.reload();
+                            Swal.fire(
+                                'Eliminado!',
+                                'La lectura ha sido eliminada.',
+                                'success'
+                            );
+                        },
+                        error: function(xhr, status, error) {
+                            Swal.fire(
+                                'Error!',
+                                'Ocurrió un error: ' + error,
+                                'error'
+                            );
+                        }
+                    });
+                }
+            });
+        }
     });
 });
 
+});
+
+
+</script>
+
+<script>
+    function verDetalleLectura(id) {
+    $.ajax({
+        url: `/lecturas_mensuales/${id}`, // Cambia la URL según tu ruta
+        type: 'GET',
+        success: function(data) {
+            // Cargar los datos en el modal
+            $('#medidor_id').text(data.medidor_id);
+            $('#cliente_nombre').text(data.cliente_nombre);
+            $('#lectura_anterior').text(data.lectura_anterior);
+            $('#lectura_actual').text(data.lectura_actual);
+            $('#consumo').text(data.consumo);
+            $('#fecha_lectura').text(data.fecha_lectura);
+            $('#fecha_inicio').text(data.fecha_inicio);
+            $('#fecha_fin').text(data.fecha_fin);
+            $('#mes_leido').text(data.mes_leido);
+            
+            // Mostrar el modal
+            $('#detalleLecturaModal').modal('show');
+        },
+        error: function() {
+            alert('Error al cargar los datos de la lectura.');
+        }
+    });
+}
 
 </script>
 
